@@ -1,0 +1,494 @@
+{% extends 'base.html' %}
+
+{% block title %}
+        {{ block.super }} Cálculo de Horas
+{% endblock title %}
+{% block content %}
+<div class="container-fluid" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<!--    <h3>Alguns tipos Cálculos de Horas Extras!</h3>-->
+
+        <div class="row">
+            <!-- Total do Calculo do Primeiro Periodo -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Calculo Total Hora(s) Entrada(s)</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{calculoHorasPrimeiroPeriodo}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-arrow-right fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total do Calculo do Segundo Periodo -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Calculo Total Hora(s) Saída(s)</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{calculoHorasSegundoPeriodo}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-arrow-right fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- É uma DIV apenas para manter a Total na quarta coluna -->
+            <div class="col-xl-3 col-md-6 mb-4">
+            </div>
+
+            <!-- Total do Calculo do Primeiro Periodo e do Calculo do Segundo Periodo -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    TOTAL DE HORAS</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{calculoTotal}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-check fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--    <form action="" method="get">-->
+        <form action="{% url 'calculaHorasExtras' %}" method="get">
+
+            <!--   CALCULO FINAL HORAS EXTRAS ( A SOMA DA EXTRA ENTRADA COM A EXTRA SAIDA )    -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">TOTAL DE HORAS EXTRAS</h6>
+                    <div class="row">
+                        <div class="mb-2">
+                            <button class="btn btn-success btn-icon-split" id="btncalculototalhorasextra" type="submit" name="btncalculototalhorasextra">
+                                <span class="icon text-white-25">
+                                    <i class="fas fa-calculator"></i>
+                                </span>
+                                 <span class="text">CALCULAR TOTAL HORAS EXTRAS</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <p>
+                        Preencha sua lista com as HORAS EXTRAS ANTES e as HORAS EXTRAS DEPOIS e clique no Horas EXTRAS TOTAIS.
+                        Clique em cálculo total, que o sistema vai te mostrar a soma do total de horas extras feitas antes e depois.
+                        Lembre-se de preencher a lista dos horarios que fez!
+                    </p>
+                    <div class="col-xl-12 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            HORAS EXTRAS ANTES --> ADICIONE OS HORÁRIOS DO PRIMEIRO PERÍODO(Horários que entrou antecipado)
+                                        </div>
+                                        <div class="mb-0 font-weight-bold text-gray-500">
+                                            1º Primeiro Período:
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-2 col-md-4 mb-2">
+                                                <div class="mb-2">
+                                                    <h6 class="m-0 font-weight-light text-primary">HR ENTRADA!</h6>
+                                                    <input class="form-control time" type="text" autofocus="" id="hrEntrada" name="hrEntrada" maxlength="8" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-md-4 mb-2">
+                                                <div class="mb-2">
+                                                    <h6 class="m-0 font-weight-light text-primary">HR QUE CHEGOU?</h6>
+                                                    <input class="form-control time" type="text" autofocus="" id="hrChegada" name="hrChegada" maxlength="8" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-md-4 mb-2">
+                                                <div class="mb-2">
+                                                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+<!--                                                    <a class="btn btn-primary btn-icon-split" id="btnAddChegadas" name="btnAddChegadas" type="submit">-->
+<!--                                                        <span class="icon text-white-25">-->
+<!--                                                            <i class="fas fa-plus"></i>-->
+<!--                                                        </span>-->
+<!--                                                        <span class="text">ADICIONAR</span>-->
+<!--                                                    </a>-->
+                                                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnAddChegadas" name="btnAddChegadas" type="submit">
+                                                            <i class="fas fa-plus fa-sm text-white-50"></i> ADICIONAR
+                                                        </a>
+
+                                                </div>
+                                                <div class="mb-2">
+<!--                                                    <a class="btn btn-primary btn-icon-split" id="btnDelChegadas" name="btnDelChegadas" type="submit">-->
+<!--                                                        <span class="icon text-white-25">-->
+<!--                                                            <i class="fas fa-minus"></i>-->
+<!--                                                       </span>-->
+<!--                                                        <span class="text">LIMPAR</span>-->
+<!--                                                    </a>-->
+                                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnDelChegadas" name="btnDelChegadas" type="submit">
+                                                        <i class="fas fa-trash fa-sm text-white-50"></i> LIMPAR
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-xl-6">
+                                            <h6 class="m-0 font-weight-light text-primary">Horários Antecipados Adicionados </h6>
+                                        </div>
+                                        <div class="row col-xl-12">
+                                            <input type="mounth" class="col-xl-12 col-md-12 mb-4" readonly="true" name="edtListaAddChegadas" id="edtListaAddChegadas"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            HORAS EXTRAS DEPOIS --> ADICIONE OS HORÁRIOS DO SEGUNDO PERÍODO(Horários que ficou após)
+                                        </div>
+                                        <div class="mb-0 font-weight-bold text-gray-500">
+                                            2º Segundo Período:
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-2 col-md-4 mb-2">
+                                                <div class="mb-2">
+                                                    <h6 class="m-0 font-weight-light text-primary">HR SAÍDA!</h6>
+                                                    <input class="form-control time" type="text" autofocus="" id="hrSaida" name="hrSaida" maxlength="8" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-md-4 mb-2">
+                                                <div class="mb-2">
+                                                    <h6 class="m-0 font-weight-light text-primary">HR QUE SAIU?</h6>
+                                                    <input class="form-control time" type="text" autofocus="" id="hrQueSaiu" name="hrQueSaiu" maxlength="8" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-md-4 mb-2">
+                                                <div class="mb-2">
+                                                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+<!--                                                    <a class="btn btn-primary btn-icon-split" id="btnAddQueSaiu" name="btnAddQueSaiu" type="submit">-->
+<!--                                                        <span class="icon text-white-25">-->
+<!--                                                            <i class="fas fa-plus"></i>-->
+<!--                                                        </span>-->
+<!--                                                        <span class="text">ADICIONAR</span>-->
+<!--                                                    </a>-->
+                                                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnAddQueSaiu" name="btnAddQueSaiu" type="submit">
+                                                            <i class="fas fa-plus fa-sm text-white-50"></i> ADICIONAR
+                                                        </a>
+                                                </div>
+                                                <div class="mb-2">
+<!--                                                    <a class="btn btn-primary btn-icon-split" id="btnDelSaida" name="btnDelSaida" type="submit">-->
+<!--                                                        <span class="icon text-white-25">-->
+<!--                                                            <i class="fas fa-minus"></i>-->
+<!--                                                       </span>-->
+<!--                                                        <span class="text">LIMPAR</span>-->
+<!--                                                    </a>-->
+                                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnDelSaida" name="btnDelSaida" type="submit">
+                                                        <i class="fas fa-trash fa-sm text-white-50"></i> LIMPAR
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-xl-6">
+                                            <h6 class="m-0 font-weight-light text-primary">Horários Subsequentes Adicionados </h6>
+                                        </div>
+                                        <div class="row col-xl-12">
+                                            <input type="mounth" class="col-xl-12 col-md-12 mb-4" readonly="true" name="edtListaAddQueSaiu" id="edtListaAddQueSaiu" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+<!--        <form action="{% url 'calculoHorasExtrasPrimeiroPeriodo' %}" method="get">-->
+<!--            &lt;!&ndash;   CALCULO ENTRADA    &ndash;&gt;-->
+<!--            <div class="card shadow mb-4">-->
+<!--                &lt;!&ndash; Card Header - Dropdown &ndash;&gt;-->
+<!--                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">-->
+<!--                    <h6 class="m-0 font-weight-bold text-primary">Fator de Cálculo - ANTES da ENTRADA</h6>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Card Body &ndash;&gt;-->
+<!--                <div class="card-body">-->
+<!--                    Aqui é calculado o tempo fez a mais ANTES do seu horário de ENTRADA,-->
+<!--                    por exemplo: Coloque seu horario de entrada 08:00:00 Hrs e o outro campo-->
+<!--                    coloque um ou mais horários que começou antes do seu horário de entrada depende de quantos dias quer calcular,-->
+<!--                    após isso clique no botão para calcular, o sistema vai dizer o total do tempo que fez antes do seu horario de entrada baseado-->
+<!--                    na lista de horarios que chegou para trabalhar os quais você adicionou, simples, prático e eficiente.-->
+<!--                </div>-->
+
+<!--                <div class="card-body">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-xl-2 col-md-4 mb-2">-->
+<!--                            <div class="card shadow mb-2">-->
+<!--                                <div class="card-header mb-2">-->
+<!--                                    <h6 class="m-0 font-weight-bold text-primary">Hora de sua Entrada:</h6>-->
+<!--                                        <input class="form-control time" type="text" autofocus="" id="hrEntrada" name="hrEntrada" maxlength="8" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-xl-2 col-md-4 mb-2">-->
+
+<!--                            <div class="card shadow mb-2">-->
+<!--                                <div class="card-header mb-2">-->
+<!--                                    <h6 class="m-0 font-weight-bold text-primary">Chegou para Trabalhar:</h6>-->
+<!--                                        <input class="form-control time" type="text" autofocus="" id="hrChegada" name="hrChegada" maxlength="8" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="mb-2">-->
+<!--                                    <a class="btn btn-primary btn-icon-split" id="btnAddChegadas" name="btnAddChegadas" type="submit">-->
+<!--                                        <span class="icon text-white-25">-->
+<!--                                            <i class="fas fa-plus"></i>-->
+<!--                                        </span>-->
+<!--                                        <span class="text">ADICIONAR HORAS</span>-->
+<!--                                    </a>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+
+<!--                        <div class="col-xl-6 col-md-10 mb-2">-->
+<!--                            <h6 class="m-0 font-weight-bold text-primary">Sua lista de horários para o cáculo de quanto tempo fez ANTES da sua ENTRADA ao trabalho.</h6>-->
+<!--                            <input type="mounth" class="col-xl-12 col-md-12 mb-4" readonly="true" name="edtListaAddChegadas" id="edtListaAddChegadas" />-->
+<!--                        </div>-->
+
+<!--                        <div class="col-xl-2 col-md-4 mb-2">-->
+<!--                            <div class="input-group-btn">-->
+<!--                                <div class="mb-2">-->
+<!--                                    <button class="btn btn-success btn-icon-split" id="btncalculo" type="submit" name="btncalculo">-->
+<!--                                        <span class="icon text-white-25">-->
+<!--                                            <i class="fas fa-calculator"></i>-->
+<!--                                        </span>-->
+<!--                                         <span class="text">CALCULAR HORAS</span>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+
+<!--                                <div class="mb-2">-->
+<!--                                    <a class="btn btn-primary btn-icon-split" id="btnDelChegadas" name="btnDelChegadas" type="submit">-->
+<!--                                        <span class="icon text-white-25">-->
+<!--                                            <i class="fas fa-minus"></i>-->
+<!--                                        </span>-->
+<!--                                        <span class="text">LIMPAR CALCULO</span>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="card-body">-->
+<!--                    <div class="row">-->
+<!--                        <h6 class="m-0 font-weight-bold text-warning">  RESULTADO </h6>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="info-box-content">-->
+<!--                            <span class="info-box-text">Qtdade de Horas Feitas Antes da Entrada:</span>-->
+<!--                            <span class="info-box-number">{{ calculoHorasPrimeiroPeriodo }}</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;   FIM CALCULO ENTRADA    &ndash;&gt;-->
+<!--        </form>-->
+
+<!--        <form action="{% url 'calculoHorasExtrasSegundoPeriodo' %}" method="get">-->
+<!--            &lt;!&ndash;   CALCULO SAIDA    &ndash;&gt;-->
+<!--            <div class="card shadow mb-4">-->
+<!--                &lt;!&ndash; Card Header - Dropdown &ndash;&gt;-->
+<!--                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">-->
+<!--                    <h6 class="m-0 font-weight-bold text-primary">Fator de Cálculo - APÓS SAÍDA</h6>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Card Body &ndash;&gt;-->
+<!--                <div class="card-body">-->
+<!--                    Aqui é calculado o tempo fez a mais APÓS do seu horário de SAÍDA,-->
+<!--                    por exemplo: Coloque seu horario de entrada 08:00:00 Hrs e o outro campo-->
+<!--                    coloque um ou mais horários que começou antes do seu horário de entrada depende de quantos dias quer calcular,-->
+<!--                    após isso clique no botão para calcular, o sistema vai dizer o total do tempo que fez antes do seu horario de entrada baseado-->
+<!--                    na lista de horarios que chegou para trabalhar os quais você adicionou, simples, prático e eficiente.-->
+<!--                </div>-->
+
+<!--                <div class="card-body">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-xl-2 col-md-4 mb-2">-->
+<!--                            <div class="card shadow mb-2">-->
+<!--                                <div class="card-header mb-2">-->
+<!--                                    <h6 class="m-0 font-weight-bold text-primary">Hora SAÍDA Trabalho:</h6>-->
+<!--                                        <input class="form-control time" type="text" autofocus="" id="hrSaida" name="hrSaida" maxlength="8" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-xl-2 col-md-4 mb-2">-->
+
+<!--                            <div class="card shadow mb-2">-->
+<!--                                <div class="card-header mb-2">-->
+<!--                                    <h6 class="m-0 font-weight-bold text-primary">Saiu do Trabalho:</h6>-->
+<!--                                        <input class="form-control time" type="text" autofocus="" id="hrQueSaiu" name="hrQueSaiu" maxlength="8" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="mb-2">-->
+<!--                                    <a class="btn btn-primary btn-icon-split" id="btnAddQueSaiu" name="btnAddQueSaiu" type="submit">-->
+<!--                                        <span class="icon text-white-25">-->
+<!--                                            <i class="fas fa-plus"></i>-->
+<!--                                        </span>-->
+<!--                                        <span class="text">ADICIONAR HORAS</span>-->
+<!--                                    </a>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+
+<!--                        <div class="col-xl-6 col-md-10 mb-2">-->
+<!--                            <h6 class="m-0 font-weight-bold text-primary">Sua lista de horários para o cáculo de quanto tempo fez DEPOIS da sua SAÍDA do trabalho.</h6>-->
+<!--                            <input type="mounth" class="col-xl-12 col-md-12 mb-4" readonly="true" name="edtListaAddQueSaiu" id="edtListaAddQueSaiu" />-->
+<!--                        </div>-->
+
+<!--                        <div class="col-xl-2 col-md-4 mb-2">-->
+<!--                            <div class="input-group-btn">-->
+<!--                                <div class="mb-2">-->
+<!--                                    <button class="btn btn-success btn-icon-split" id="btncalculoSaida" type="submit" name="btncalculoSaida">-->
+<!--                                        <span class="icon text-white-25">-->
+<!--                                            <i class="fas fa-calculator"></i>-->
+<!--                                        </span>-->
+<!--                                         <span class="text">CALCULAR HORAS</span>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+
+<!--                                <div class="mb-2">-->
+<!--                                    <a class="btn btn-primary btn-icon-split" id="btnDelSaida" name="btnDelSaida" type="submit">-->
+<!--                                        <span class="icon text-white-25">-->
+<!--                                            <i class="fas fa-minus"></i>-->
+<!--                                        </span>-->
+<!--                                        <span class="text">LIMPAR CALCULO</span>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <div class="row">-->
+<!--                        <h6 class="m-0 font-weight-bold text-warning">  RESULTADO </h6>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="info-box-content">-->
+<!--                            <span class="info-box-text">Qtdade de Horas Feitas Depois da Saída:</span>-->
+<!--                            <span class="info-box-number">{{ calculoHorasExtrasDepoisSaidas }}</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+        <!-- FIM  CALCULO SAIDA    -->
+    </br>
+
+</div>
+{% block js %}
+
+<script>
+
+    var listaAddChegadas = []
+    /* Pegando o valor que é digitado no campo chegadas e adicionar a minha variavel lista */
+    $("#btnAddChegadas").on('click', function(){
+        let hrEnt = $("#hrEntrada").val();
+        let hrCheg = $("#hrChegada").val();
+        /* Validando os Horarios */
+        if (hrCheg === '' || hrEnt === ''){
+            alert('Um ou os Dois campos devem estão sem horário, difícil vc hem!');
+        }
+        else if (hrCheg === hrEnt){
+           alert('Horarios Iguais, NÃO servem para o Cálculo, aiaiaiai viu!');
+        }
+        else if (hrCheg > hrEnt){
+            alert('Presta Atenção, Por acaso você chegou DEPOIS do seu Horário de Entrada?');
+        }
+        else if (hrCheg < hrEnt){
+            var hr = $("#hrChegada").val();
+<!--            alert(hr);-->
+            listaAddChegadas.push(hr)
+            $("#edtListaAddChegadas").val(listaAddChegadas)
+            $("#hrChegada").val('')
+        }
+    });
+
+    /* LIMPANDO OS CAMPOS E VARIÁVEIS DA De ENTRADA */
+    $("#btnDelChegadas").on('click', function(){
+        alert('Limpando todos os Horarios!')
+        listaAddChegadas = ''
+        <!--alert(listaAddChegadas)-->
+        $("#hrEntrada").val('')
+        $("#hrChegada").val('')
+        $("#edtListaAddChegadas").val('')
+        <!--alert('Valor do Input Hora: ' + $("#hrChegada").val())-->
+        <!--alert('Valores da Variavel com as chegadas: ' + $("#listaAddChegadas").val())-->
+    });
+
+    var listaAddQueSaiu = []
+    /* Pegando o valor que é digitado no campo Que SAiu e adicionar a minha variavel lista */
+    $("#btnAddQueSaiu").on('click', function(){
+        let hrSaida = $("#hrSaida ").val();
+        let hrQueSaiu = $("#hrQueSaiu").val();
+        /* Validando os Horarios */
+        if (hrQueSaiu === '' || hrSaida === ''){
+            alert('Um ou os Dois campos devem estão sem horário, difícil vc hem!');
+        }
+        else if (hrQueSaiu === hrSaida){
+           alert('Horarios Iguais, NÃO servem para o Cálculo, aiaiaiai viu!');
+        }
+        else if (hrQueSaiu < hrSaida){
+            alert('Presta Atenção, Por acaso você saiu ANTES do seu Horário de Saída?');
+        }
+        else if (hrQueSaiu > hrSaida){
+            var hr = $("#hrQueSaiu").val();
+            listaAddQueSaiu.push(hr)
+            $("#edtListaAddQueSaiu").val(listaAddQueSaiu)
+            $("#hrQueSaiu").val('')
+        }
+    });
+
+    /* LIMPANDO OS CAMPOS E VARIÁVEIS DA TELA */
+    $("#btnDelSaida").on('click', function(){
+        alert('Limpando todos os Horarios!')
+        listaAddQueSaiu = ''
+        $("#hrSaida").val('')
+        $("#hrQueSaiu").val('')
+        $("#edtListaAddQueSaiu").val('')
+        <!--alert('Valor do Input Hora: ' + $("#hrChegada").val())-->
+        <!--alert('Valores da Variavel com as chegadas: ' + $("#listaAddChegadas").val())-->
+    });
+
+    $("#btncalculototalhorasextra").on('click', function(){
+        if (listaAddChegadas == '' && listaAddQueSaiu == ''){
+            alert('As duas listas estão sem valores, acrescente as horas')
+        };
+
+
+    });
+</script>
+{% endblock js %}
+
+{% endblock content %}
+
