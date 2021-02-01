@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # 'app',
     'app.home',
     'app.calculaHorasDia',
+    'app.blog',
     'mvtec',
 ]
 

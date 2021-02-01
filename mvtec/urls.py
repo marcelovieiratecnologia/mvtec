@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView  # No Momento Fora de USO , estou usando o Include e não o TemplateView
 
 
 urlpatterns = [
@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('app.home.urls')), # aponta para home tb .. como pode ver essa e a debaixo aponta para mesmo URLS
     path('home/', include('app.home.urls')),   # path('', TemplateView.as_view(template_name='home.html')),
     path('calculaHorasDia/', include('app.calculaHorasDia.urls')), # path('calculaHorasDia/', TemplateView.as_view(template_name='calculaHorasDia/teste.html')),
+    path('blog/', include('app.blog.urls')),
 ]
