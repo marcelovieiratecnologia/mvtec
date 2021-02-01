@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +10,14 @@
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
-    <title>Stand CSS Blog by TemplateMo</title>
+    <title>
+      {% block title %}
+        MvTec -
+      {% endblock title %}
+    </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
+    <link href={% static "vendor/bootstrap/css/bootstrap.min.css" %} rel="stylesheet">
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{% static 'blog/assets/css/fontawesome.css' %}">
@@ -29,6 +33,11 @@ https://templatemo.com/tm-551-stand-blog
   </head>
 
   <body>
+
+
+  {% block content %}
+  {% endblock content %}
+
 
         <!-- Bootstrap core JavaScript -->
     <script src="{% static 'bolg/vendor/jquery/jquery.min.js' %}"></script>
@@ -51,6 +60,7 @@ https://templatemo.com/tm-551-stand-blog
           }
       }
     </script>
+
 
   </body>
 </html>
