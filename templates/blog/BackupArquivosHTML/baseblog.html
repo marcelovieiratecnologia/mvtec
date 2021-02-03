@@ -17,7 +17,7 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href={% static "vendor/bootstrap/css/bootstrap.min.css" %} rel="stylesheet">
+    <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{% static 'blog/assets/css/fontawesome.css' %}">
@@ -35,12 +35,23 @@ https://templatemo.com/tm-551-stand-blog
   <body>
 
 
-  {% block content %}
-  {% endblock content %}
+    {% block preloader %} {% endblock preloader %}
+    {% block header %}{% endblock header %}
+    {% block slide %}{% endblock slide %}
+    <div class="blog-posts">
+      <div class="container">
+        <div class="row">
+          {% block content %} {% endblock content %}
+          {% block aside %} {% endblock aside %}
+        </div>
+      </div>
+    </div>
+
+    {% block footer %} {% endblock footer %}
 
 
         <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'bolg/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'blog/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Additional Scripts -->
