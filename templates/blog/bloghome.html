@@ -1,55 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}
-        {{ block.super }} Blog
-{% endblock title %}
-
+{% block title %} {{ block.super }} Blog {% endblock title %}
 {% block css %}
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
     <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{% static 'blog/assets/css/fontawesome.css' %}">
-
-      <link rel="stylesheet" href="{% static 'blog/assets/css/templatemo-stand-blog.css' %}">
-
+    <link rel="stylesheet" href="{% static 'blog/assets/css/templatemo-stand-blog.css' %}">
     <link rel="stylesheet" href="{% static 'blog/assets/css/owl.css' %}">
 {% endblock css %}
-
 {% block content %}
-
   {% block preloader %}
     {% include 'blog/preloader.html' %}
   {% endblock preloader %}
 
+
   {% block slide %}
     {% include 'blog/slide.html' %}
   {% endblock slide %}
-
-
-  <div class="blog-posts">
+  <section class="{% block container %} blog-posts {% endblock container %} ">
     <div class="container">
       <div class="row">
         {% include 'blog/content.html' %}
         {% block aside %} {% include 'blog/aside.html' %} {% endblock aside %}
       </div>
     </div>
-  </div>
-
+  </section>
 {% endblock content %}
-
 {% block js %}
         <!-- Bootstrap core JavaScript -->
     <script src="{% static 'blog/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
     <!-- Additional Scripts -->
     <script src="{% static 'blog/assets/js/custom.js' %}"></script>
     <script src="{% static 'blog/assets/js/owl.js' %}"></script>
     <script src="{% static 'blog/assets/js/slick.js' %}"></script>
     <script src="{% static 'blog/assets/js/isotope.js' %}"></script>
     <script src="{% static 'blog/assets/js/accordions.js' %}"></script>
-
     <script language = "text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
@@ -60,5 +47,4 @@
           }
       }
     </script>
-
 {% endblock js %}

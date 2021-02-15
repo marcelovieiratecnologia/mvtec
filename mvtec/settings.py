@@ -42,8 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # Apps de Terceiros
     'django_extensions',
+    'ckeditor',
+    'ckeditor_uploader',
+
     # My Apps
     # 'app',
     'app.home',
@@ -148,3 +152,14 @@ STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'basic',
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = "images/uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+
