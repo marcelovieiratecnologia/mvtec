@@ -10,5 +10,7 @@ urlpatterns = [
     path('categorydjango', categoryDjango, name='categorydjango'),
     path('categorylaravel', categoryLaravel, name='categorylaravel'),
     path('categorymysql', categoryMysql, name='categorymysql'),
+    path('categoryvulnerabilidades', categoryVulnerabilidades, name='categoryvulnerabilidades'),
     path('addcomment/<int:id>', addcomment, name='addcomment'),
+
 ]

@@ -9,34 +9,48 @@ from .forms import CommentForm
 # Create your views here.
 def indexblog(request):
     blog_slide_random = Post.objects.order_by('?')[:4]  # Aqui estou montando o SLIDE de forma randomica  e com apenas 4
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
-    category = Category.objects.all()
+    blog_latest = Post.objects.order_by('id')[:8]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    categorys = Category.objects.all()
     conteudo = {
                 'blog_slide_random': blog_slide_random,
                 'blog_latest': blog_latest,
-                'category': category,
+                'categorys': categorys,
                 }
     return render(request, "blog/bloghome.html", conteudo)
 
-
-def categoryPython(request):
-    category = Post.objects.filter(category_id=5) # categoria do PYTHON
-    return render(request, 'blog/categorys.html', {'category': category})
+def categoryLaravel(request):
+    category = Post.objects.filter(category_id=1) # categoria do Laravel
+    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    categorys = Category.objects.all()
+    return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
 def categoryDjango(request):
     category = Post.objects.filter(category_id=2) # categoria do DJANGO
-    return render(request, 'blog/categorys.html', {'category': category})
-
-
-def categoryLaravel(request):
-    category = Post.objects.filter(category_id=1) # categoria do Laravel
-    return render(request, 'blog/categorys.html', {'category': category})
+    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    categorys = Category.objects.all()
+    return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
 def categoryMysql(request):
     category = Post.objects.filter(category_id=3) # categoria do MYSQL
-    return render(request, 'blog/categorys.html', {'category': category})
+    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    categorys = Category.objects.all()
+    return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
+
+
+def categoryPython(request):
+    category = Post.objects.filter(category_id=5) # categoria do PYTHON
+    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    categorys = Category.objects.all()
+    return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
+
+
+def categoryVulnerabilidades(request):
+    category = Post.objects.filter(category_id=6) # categoria do VULNERABILIDADES
+    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    categorys = Category.objects.all()
+    return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
 def blogs(request):
@@ -58,25 +72,25 @@ def blogs(request):
 
 def blogDetail(request, id, slug):
     blogdetails = Post.objects.get(pk=id)
-    comments =  Comment.objects.filter(post_id=id, status='Lido')
+    comments = Comment.objects.filter(post_id=id, status='Lido')
     totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
+    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    categorys = Category.objects.all()
 
-    return render(request, 'blog/blogdetail.html', {'blogdetails':blogdetails, 'comments':comments, 'totalcomments':totalcomments})
+    return render(request, 'blog/blogdetail.html', {'blogdetails': blogdetails, 'comments': comments, 'totalcomments': totalcomments, 'blog_latest': blog_latest,
+                                                    'categorys': categorys})
 
 
 def addcomment(request, id):
     url = request.META.get('HTTP_REFERER')
-    print('1')
     if request.method == 'POST':
-        print('2')
         form = CommentForm(request.POST)
         if form.is_valid():
-            print('3')
             data = Comment()
             data.name = form.cleaned_data['name']
             data.comment = form.cleaned_data['comment']
             data.post_id = id
-            print(data)
             data.save()
             return HttpResponseRedirect(url)
     return HttpResponseRedirect(url)
+

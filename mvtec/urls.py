@@ -22,12 +22,11 @@ from django.views.generic import TemplateView  # No Momento Fora de USO , estou 
 
 
 urlpatterns = [
-    path('admin', admin.site.urls),
+    path('admin/', admin.site.urls),
     # path('', include('app.home.urls')), # aponta para home tb .. como pode ver essa e a debaixo aponta para mesmo URLS
-    # path('home/', include('app.home.urls')),   # path('', TemplateView.as_view(template_name='home.html')),
+    path('home/', include('app.home.urls')),   # path('', TemplateView.as_view(template_name='home.html')),
     path('blog/', include('app.blog.urls')),   # path('', TemplateView.as_view(template_name='home.html')),
     path('calculaHorasDia/', include('app.calculaHorasDia.urls')), # path('calculaHorasDia/', TemplateView.as_view(template_name='calculaHorasDia/teste.html')),
-    # path('blog/', include('app.blog.urls')),
     path('', include('app.blog.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')), # conforme solicitado no manual o CKEDITOR (GitHub CkEditor Django) adicionei essas linha
 

@@ -27,9 +27,10 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, null=False)
     subtitle = models.CharField(verbose_name='SubTítulo', max_length=200, null=False)
     description = models.TextField(verbose_name='Descrição', null=False)
-    image = models.ImageField(verbose_name='Imagem', upload_to='images/', blank=True)
+    image = models.ImageField(verbose_name='Imagem', upload_to='images/', blank=True) # Tamanho : 580x500 px
     # text = models.TextField(verbose_name='Texto', null=False) Passei a usar o CKEDITOR, então mudei conforme a linha abaixo
     text = RichTextUploadingField(verbose_name='Texto')
+    fonte = models.CharField(max_length=255, null=True)
 
     created_at = models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Alterado em', auto_now=True)
@@ -52,10 +53,11 @@ class Post(models.Model):
 class Comment(models.Model):
     STATUS = (
         ('Lido', 'Lido'),
-        ('Não Lido','Não Lido'),
+        ('Não Lido', 'Não Lido'),
     )
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     name = models.CharField(max_length=70, blank=False)
+    email = models.EmailField(max_length=120, null=False, default=None)
     comment = models.TextField(blank=False)
     status = models.CharField(choices=STATUS, max_length=14, default="Não Lido")
 

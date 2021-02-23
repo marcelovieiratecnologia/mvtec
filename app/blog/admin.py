@@ -14,7 +14,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'status']
+    list_display = ['name', 'email', 'status']
     list_filter = ['status']
 
 
