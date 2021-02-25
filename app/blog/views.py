@@ -9,7 +9,7 @@ from .forms import CommentForm
 # Create your views here.
 def indexblog(request):
     blog_slide_random = Post.objects.order_by('?')[:4]  # Aqui estou montando o SLIDE de forma randomica  e com apenas 4
-    blog_latest = Post.objects.order_by('id')[:8]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.order_by('id')[:8]  # Aqui estou montanto o meu conteúdo para a página e apenas 8 últimos
     categorys = Category.objects.all()
     conteudo = {
                 'blog_slide_random': blog_slide_random,
@@ -20,35 +20,45 @@ def indexblog(request):
 
 def categoryLaravel(request):
     category = Post.objects.filter(category_id=1) # categoria do Laravel
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
 def categoryDjango(request):
     category = Post.objects.filter(category_id=2) # categoria do DJANGO
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
 def categoryMysql(request):
     category = Post.objects.filter(category_id=3) # categoria do MYSQL
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
 def categoryPython(request):
     category = Post.objects.filter(category_id=5) # categoria do PYTHON
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     categorys = Category.objects.all()
-    return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
+    blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
+
+
+    # TODO: tentando monstrar os comentários
+    total = Comment.objects.filter(post_id=id, status='Lido').count()
+
+    context ={'category': category,
+              'blog_latest': blog_latest,
+              'categorys': categorys,
+              # 'totalcomments': totalcomments,
+    }
+    return render(request, 'blog/categorys.html', context)
 
 
 def categoryVulnerabilidades(request):
     category = Post.objects.filter(category_id=6) # categoria do VULNERABILIDADES
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
@@ -73,12 +83,23 @@ def blogs(request):
 def blogDetail(request, id, slug):
     blogdetails = Post.objects.get(pk=id)
     comments = Comment.objects.filter(post_id=id, status='Lido')
-    totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
+    # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
+    # outro jeito de contar os comentários
+    totalcomments = 0
+    for i in comments:
+        totalcomments += 1
+
     blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     categorys = Category.objects.all()
 
-    return render(request, 'blog/blogdetail.html', {'blogdetails': blogdetails, 'comments': comments, 'totalcomments': totalcomments, 'blog_latest': blog_latest,
-                                                    'categorys': categorys})
+    context = {'blogdetails': blogdetails,
+               'comments': comments,
+               'totalcomments': totalcomments,
+               'blog_latest': blog_latest,
+               'categorys': categorys
+               }
+
+    return render(request, 'blog/blogdetail.html', context)
 
 
 def addcomment(request, id):

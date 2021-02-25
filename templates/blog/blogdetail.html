@@ -32,7 +32,11 @@
                       <ul class="post-info">
                         <li><a href="#">{{blogdetails.user.last_name}}</a></li>
                         <li><a href="#">{{blogdetails.updated_at|date:"d/m/Y"}}</a></li>
-                        <li><a href="#">10 Comments</a></li>
+                        {% if totalcomments > 0 %}
+                          <li><a href="#">{{totalcomments}} Commentário(s)</a></li>
+                        {% else %}
+                          <li><a href="#">Sem Comentários</a></li>
+                        {% endif %}
                       </ul>
                       <p>
                         {{blogdetails.text|safe}}
@@ -61,7 +65,11 @@
                 <div class="col-lg-12">
                   <div class="sidebar-item comments">
                     <div class="sidebar-heading">
-                      <h2>{{totalcomments}} Comentário(s)</h2>
+                      {% if totalcomment > 0 %}
+                        <h2>{{totalcomments}} Comentário(s)</h2>
+                      {% else %}
+                        <h2>Sem comentários</h2>
+                      {% endif %}
                     </div>
                     <div class="content">
                       {% for comment in comments %}
