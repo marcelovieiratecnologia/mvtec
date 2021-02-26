@@ -46,7 +46,7 @@ def categoryPython(request):
 
 
     # TODO: tentando monstrar os comentários
-    total = Comment.objects.filter(post_id=id, status='Lido').count()
+    # total = Comment.objects.filter(post_id=id, status='Lido').count()
 
     context ={'category': category,
               'blog_latest': blog_latest,

@@ -164,5 +164,5 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = "images/uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
-heroku config:set DISABLE_COLLECTSTATIC=1
+
 
