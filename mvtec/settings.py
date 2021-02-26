@@ -14,6 +14,7 @@ import os
 from decouple import config, Csv
 # from dj_database_url import parse as dburl
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -164,5 +165,4 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = "images/uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
-
-
+django_heroku.settings(locals())
