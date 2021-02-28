@@ -7,7 +7,7 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('title',)}
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'created_at', 'updated_at', 'image_admin']
+    list_display = ['title', 'category', 'created_at', 'updated_at']
     prepopulated_fields = {'slug':('title',) }
     readonly_fields = ('image_admin', )
     list_filter = ['category']
