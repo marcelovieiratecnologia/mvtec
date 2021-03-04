@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 import datetime
 
 # Variáveis Globais
@@ -7,7 +7,6 @@ listaHrSaidas = []
 
 lsCalculaDifEntrada = [] # Lista que será adicionado as Diferenças da entrada
 lsCalculaDifSaida = [] # Lista que será adicionado as Diferenças da Saída
-
 
 class calculo():
 	def __init__(self, hrEntrada=0, hrChegada=0, listaHrChegadas=0, hrSaida=0, hrQueSaiu=0, listaHrSaidas=0):
@@ -155,11 +154,18 @@ class calculo():
 		return (somaSaida[0])
 
 def calculoHorasExtrasPrimeiroPeriodo(request):
-	if 'edtListaAddChegadas' in request.GET:
-		horariosChegadas = request.GET.get('edtListaAddChegadas')  # string que trago do front com todos os horarios
-		# print('Horarios de Chegada : ', horariosChegadas)
-	else:
-		horariosChegadas = ''
+	horariosChegadas = ''
+	hrEntrada = ''
+	hrChegada = ''
+
+	# if 'edtListaAddChegadas' in request.GET:
+	horariosChegadas = request.GET.get('edtListaAddChegadas', "")
+	# if request.metho == 'GET':
+	# 	# print(':::::::::::::', request.GET.get('edtListaAddChegadas'))
+	# 	horariosChegadas = request.GET.get('edtListaAddChegadas')  # string que trago do front com todos os horarios
+	# 	#print('Horarios de Chegada-------- : ', horariosChegadas)
+	# else:
+	# 	horariosChegadas = ''
 
 	listaHrChegadas = horariosChegadas.split(',')  # convertendo em uma lista a string que trouxe do front
 
@@ -221,13 +227,22 @@ def calculoHorasExtrasSegundoPeriodo(request):
 	return  calculoHorasExtrasDepoisSaidas
 
 def calculaHorasExtras(request):
-	calculoHorasPrimeiroPeriodo = calculoHorasExtrasPrimeiroPeriodo(request)
-	print(calculoHorasPrimeiroPeriodo)
-	calculoHorasSegundoPeriodo = calculoHorasExtrasSegundoPeriodo(request)
-	print(calculoHorasSegundoPeriodo)
 
-	calculoTotal = calculoHorasPrimeiroPeriodo + calculoHorasSegundoPeriodo
+	if request.method == 'GET':
+		calculoHorasPrimeiroPeriodo = calculoHorasExtrasPrimeiroPeriodo(request)
+		print('PRIMEIRO:::: ', calculoHorasPrimeiroPeriodo)
 
-	return render(request, 'calculaHorasDia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo':calculoHorasPrimeiroPeriodo,
-																	 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
-																	'calculoTotal':calculoTotal})
+		# calculoHorasSegundoPeriodo = calculoHorasExtrasSegundoPeriodo(request)
+		# print('SEGUNDO:::: ',calculoHorasSegundoPeriodo)
+		#calculoTotal = calculoHorasPrimeiroPeriodo + calculoHorasSegundoPeriodo
+
+		calculoTotal = calculoHorasPrimeiroPeriodo
+
+		return render(request, 'calculaHorasDia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo':calculoHorasPrimeiroPeriodo,
+		# 															# 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
+																'calculoTotal':calculoTotal})
+
+		# return render(request, 'calculaHorasDia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo':calculoHorasPrimeiroPeriodo,
+		# 															# 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
+		# 																'calculoTotal':calculoTotal})
+	# return render(request, 'calculaHorasDia')
