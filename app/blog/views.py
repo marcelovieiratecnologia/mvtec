@@ -18,29 +18,29 @@ def indexblog(request):
                 }
     return render(request, "blog/bloghome.html", conteudo)
 
-def categoryLaravel(request):
+def category_laravel(request):
     category = Post.objects.filter(category_id=1) # categoria do Laravel
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
-def categoryDjango(request):
+def category_django(request):
     category = Post.objects.filter(category_id=2) # categoria do DJANGO
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
-def categoryMysql(request):
+def category_mysql(request):
     category = Post.objects.filter(category_id=3) # categoria do MYSQL
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
 
 
-def categoryPython(request):
-    category = Post.objects.filter(category_id=5) # categoria do PYTHON
+def category_python(request):
+    category = Post.objects.filter(category_id=4) # categoria do PYTHON
     categorys = Category.objects.all()
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
 
@@ -56,8 +56,8 @@ def categoryPython(request):
     return render(request, 'blog/categorys.html', context)
 
 
-def categoryVulnerabilidades(request):
-    category = Post.objects.filter(category_id=6) # categoria do VULNERABILIDADES
+def category_vulnerabilidades(request):
+    category = Post.objects.filter(category_id=5) # categoria do VULNERABILIDADES
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     categorys = Category.objects.all()
     return render(request, 'blog/categorys.html', {'category': category, 'blog_latest': blog_latest, 'categorys': categorys})
@@ -86,7 +86,7 @@ def blogs(request):
 #     return categorias
 
 
-def blogDetail(request, id, slug):
+def blog_detail(request, id, slug):
     blogdetails = Post.objects.get(pk=id)
     # print('blogdetails ::::::::::::::::::', blogdetails)
     comments = Comment.objects.filter(post_id=id, status='Lido')
@@ -97,7 +97,6 @@ def blogDetail(request, id, slug):
     totalcomments = 0
     for i in comments:
         totalcomments += 1
-
 
     blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     categorys = Category.objects.all()
@@ -112,7 +111,7 @@ def blogDetail(request, id, slug):
     return render(request, 'blog/blogdetail.html', context)
 
 
-def addcomment(request, id):
+def add_comment(request, id):
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
         form = CommentForm(request.POST)
