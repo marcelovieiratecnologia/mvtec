@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
+from django.template.loader import render_to_string
 import datetime
 
 # Variáveis Globais
@@ -8,7 +9,7 @@ listaHrSaidas = []
 lsCalculaDifEntrada = [] # Lista que será adicionado as Diferenças da entrada
 lsCalculaDifSaida = [] # Lista que será adicionado as Diferenças da Saída
 
-class calculo():
+class Calculo():
 	def __init__(self, hrEntrada=0, hrChegada=0, listaHrChegadas=0, hrSaida=0, hrQueSaiu=0, listaHrSaidas=0):
 		self.hrEntrada = hrEntrada
 		self.hrChegada = hrChegada
@@ -18,57 +19,64 @@ class calculo():
 		self.listaHrSaidas = listaHrSaidas
 
 	@property
-	def hrEntrada(self):
+	def hr_entrada(self):
 		return self.__hrEntrada
-	@hrEntrada.setter
-	def hrEntrada(self, hrEnt):
+
+	@hr_entrada.setter
+	def hr_entrada(self, hrEnt):
 		self.__hrEntrada = hrEnt
 
 	@property
-	def hrChegada(self):
+	def hr_chegada(self):
 		return self.__hrChegada
-	@hrChegada.setter
-	def hrChegada(self, hrCheg):
+
+	@hr_chegada.setter
+	def hr_chegada(self, hrCheg):
 		self.__hrChegada = hrCheg
 
 	@property
-	def hrSaida(self):
+	def hr_saida(self):
 		return self.__hrSaida
-	@hrSaida.setter
-	def hrSaida(self, hrSai):
+
+	@hr_saida.setter
+	def hr_saida(self, hrSai):
 		self.__hrSaida = hrSai
 
 	@property
-	def listaHrChegadas(self):
+	def lista_hr_chegadas(self):
 		return self.__listaHrChegadas
-	@listaHrChegadas.setter
-	def listaHrChegadas(self, listaHrCheg):
+
+	@lista_hr_chegadas.setter
+	def lista_hr_chegadas(self, listaHrCheg):
 		self.__listaHrChegadas = listaHrCheg
 
 	@property
-	def hrSaida(self):
+	def hr_saida(self):
 		return self.__hrSaida
-	@hrSaida.setter
-	def hrSaida(self, hrSai):
+
+	@hr_saida.setter
+	def hr_saida(self, hrSai):
 		self.__hrSaida = hrSai
 
 	@property
-	def hrQueSaiu(self):
+	def hr_que_saiu(self):
 		return self.__hrQueSaiu
-	@hrQueSaiu.setter
-	def hrQueSaiu(self, hrQueSai):
+
+	@hr_que_saiu.setter
+	def hr_que_saiu(self, hrQueSai):
 		self.__hrQueSaiu = hrQueSai
 
 	@property
-	def listaHrSaidas(self):
+	def lista_hr_saidas(self):
 		return self.__listaHrSaidas
-	@listaHrSaidas.setter
-	def listaHrSaidas(self, listaHrSai):
+
+	@lista_hr_saidas.setter
+	def lista_hr_saidas(self, listaHrSai):
 		self.__listaHrSaidas = listaHrSai
 
 	# @@@@@@   CALCULA ENTRADA @@@@@@@
 	# CALCULA A DIFERENÇA ENTRE A HORA QUE ENTRO COM AS HORAS QUE CHEGUEI E GUARDA EM UMA LISTA
-	def calculoHorasExtrasAntesEntradas(self, hrEntrada, listaHrChegadas):
+	def calculo_horas_extras_antes_entradas(self, hrEntrada, listaHrChegadas):
 		hrEntrada = str(hrEntrada) # '08:30:00'  # Meu Horário de Entrada
 		h, m, s = (map(int, hrEntrada.split(':')))
 		HrEntrada = datetime.timedelta(0, s, 0, 0, m, h)
@@ -113,7 +121,7 @@ class calculo():
 
 	# @@@@@@   CALCULA SAIDA @@@@@@@
 	# CALCULA A DIFERENÇA ENTRE A HORA QUE SAIO COM AS HORAS QUE SAÍ E GUARDA EM UMA LISTA
-	def calculoHorasExtrasDepoisSaidas(self, hrSaida, listaHrSaidas):
+	def calculo_horas_extras_depois_saidas(self, hrSaida, listaHrSaidas):
 		if listaHrSaidas[0] != '00:00:00':  # Se estiver com valor '00:00:00' é por que não tive Horas extras depois das 17:30.
 			hrSaida = str(hrSaida)  # '08:30:00'  # Meu Horário de Entrada
 			h, m, s = (map(int, hrSaida.split(':')))
@@ -153,13 +161,13 @@ class calculo():
 			print('-------------------------------------------------------------------|         |')
 		return (somaSaida[0])
 
-def calculoHorasExtrasPrimeiroPeriodo(request):
+def calculo_horas_extras_primeiro_periodo(request):
 	horariosChegadas = ''
 	hrEntrada = ''
 	hrChegada = ''
 
 	# if 'edtListaAddChegadas' in request.GET:
-	horariosChegadas = request.GET.get('edtListaAddChegadas', "")
+	horariosChegadas = request.POST.get('edtListaAddChegadas', "")
 	# if request.metho == 'GET':
 	# 	# print(':::::::::::::', request.GET.get('edtListaAddChegadas'))
 	# 	horariosChegadas = request.GET.get('edtListaAddChegadas')  # string que trago do front com todos os horarios
@@ -170,17 +178,17 @@ def calculoHorasExtrasPrimeiroPeriodo(request):
 	listaHrChegadas = horariosChegadas.split(',')  # convertendo em uma lista a string que trouxe do front
 
 	# Referente ao calculo antes de começar a trabalhar
-	if 'hrEntrada' in request.GET:
-		hrEntrada = request.GET['hrEntrada']
+	if 'hrEntrada' in request.POST:
+		hrEntrada = request.POST['hrEntrada']
 	else:
 		hrEntrada = ''
-	if 'hrChegada' in request.GET:
-		hrChegada = request.GET['hrChegada']
+	if 'hrChegada' in request.POST:
+		hrChegada = request.POST['hrChegada']
 	else:
 		hrChegada = ''
 
 	if (hrEntrada != '') and (horariosChegadas != ''):  # and (hrChegada != ''):
-		calculoHorasExtrasAntesEntradas = calculo(hrEntrada, hrChegada, listaHrChegadas).calculoHorasExtrasAntesEntradas(hrEntrada, listaHrChegadas)
+		calculoHorasExtrasAntesEntradas = Calculo(hrEntrada, hrChegada, listaHrChegadas).calculo_horas_extras_antes_entradas(hrEntrada, listaHrChegadas)
 	else:
 		calculoHorasExtrasAntesEntradas = ''
 
@@ -188,10 +196,10 @@ def calculoHorasExtrasPrimeiroPeriodo(request):
 	return calculoHorasExtrasAntesEntradas
 
 
-def calculoHorasExtrasSegundoPeriodo(request):
+def calculo_horas_extras_segundo_periodo(request):
 
-	if 'edtListaAddQueSaiu' in request.GET:
-		horariosSaidas = request.GET.get('edtListaAddQueSaiu')  # string que trago do front com todos os horarios
+	if 'edtListaAddQueSaiu' in request.POST:
+		horariosSaidas = request.POST.get('edtListaAddQueSaiu')  # string que trago do front com todos os horarios
 		# print('Horarios de Saida: ', horariosSaidas)
 	else:
 		horariosSaidas = ''
@@ -200,39 +208,43 @@ def calculoHorasExtrasSegundoPeriodo(request):
 	# print(listaDeHorarios)
 
 	# Referente ao calculo depois que saí do trabalho
-	if 'hrSaida' in request.GET:
-		hrSaida = request.GET['hrSaida']
+	if 'hrSaida' in request.POST:
+		hrSaida = request.POST['hrSaida']
 	else:
 		hrSaida = ''
-	if 'hrQueSaiu' in request.GET:
-		hrQueSaiu = request.GET['hrQueSaiu']
+	if 'hrQueSaiu' in request.POST:
+		hrQueSaiu = request.POST['hrQueSaiu']
 	else:
 		hrQueSaiu = ''
 
 	calculoHorasExtrasDepoisSaidas = ''
 	if (hrSaida != '') and (horariosSaidas != ''):
-		calculoHorasExtrasDepoisSaidas = calculo(hrSaida, hrQueSaiu, listaHrSaidas).calculoHorasExtrasDepoisSaidas(hrSaida, listaHrSaidas)
+		calculoHorasExtrasDepoisSaidas = Calculo(hrSaida, hrQueSaiu, listaHrSaidas).calculo_horas_extras_depois_saidas(hrSaida, listaHrSaidas)
 	else:
 		calculoHorasExtrasDepoisSaidas = ''
 
 	# dic_CalcHrEnt_CalcHrSai = {}
-	# if calculoHorasExtrasAntesEntradas != '':
+	# if calculo_horas_extras_antes_entradas != '':
 	# 	dic_CalcHrEnt_CalcHrSai['HrExtraEntrada'] = calculoHorasExtrasAntesEntradas
-	# if calculoHorasExtrasDepoisSaidas != '':
+	# if calculo_horas_extras_depois_saidas != '':
 	# 	dic_CalcHrEnt_CalcHrSai['HrExtraSaida'] = calculoHorasExtrasDepoisSaidas
 	# print(dic_CalcHrEnt_CalcHrSai)
 
 	# todo: Estou com o seguinte problema, se mando calcular atraveś do clique do botão , funciona certinho, mas se aperto o F5 , por mais que não tenha nenhum valor dentro dos inputs ele passa pela função e tras sei lá da onde o ultimo valor que adicionei e da um resoltado para o usuário
 	# return render(request,'calculaHorasDia/calculaHorasDia.html', {'hrSaida':hrSaida, 'hrQueSaiu':hrQueSaiu, 'calculoHorasExtrasDepoisSaidas':calculoHorasExtrasDepoisSaidas})
-	return  calculoHorasExtrasDepoisSaidas
+	return calculoHorasExtrasDepoisSaidas
 
-def calculaHorasExtras(request):
+def calcula_horas_extras(request):
+	url = request.META.get('HTTP_REFERER')
+	rendered = render_to_string('calculaHorasDia/calculaHorasDia.html')
+	calculoHorasPrimeiroPeriodo = 0
+	calculoTotal = 0
 
-	if request.method == 'GET':
-		calculoHorasPrimeiroPeriodo = calculoHorasExtrasPrimeiroPeriodo(request)
-		print('PRIMEIRO:::: ', calculoHorasPrimeiroPeriodo)
+	if request.method == 'POST':
+		calculoHorasPrimeiroPeriodo = calculo_horas_extras_primeiro_periodo(request)
+		# print('PRIMEIRO:::: ', calculoHorasPrimeiroPeriodo)
 
-		# calculoHorasSegundoPeriodo = calculoHorasExtrasSegundoPeriodo(request)
+		# calculoHorasSegundoPeriodo = calculo_horas_extras_segundo_periodo(request)
 		# print('SEGUNDO:::: ',calculoHorasSegundoPeriodo)
 		#calculoTotal = calculoHorasPrimeiroPeriodo + calculoHorasSegundoPeriodo
 
@@ -240,9 +252,5 @@ def calculaHorasExtras(request):
 
 		return render(request, 'calculaHorasDia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo':calculoHorasPrimeiroPeriodo,
 		# 															# 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
-																'calculoTotal':calculoTotal})
-
-		# return render(request, 'calculaHorasDia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo':calculoHorasPrimeiroPeriodo,
-		# 															# 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
-		# 																'calculoTotal':calculoTotal})
-	# return render(request, 'calculaHorasDia')
+																		'calculoTotal':calculoTotal})
+	return render(request, 'calculaHorasDia/calculaHorasDia.html')

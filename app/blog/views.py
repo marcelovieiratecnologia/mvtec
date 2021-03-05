@@ -65,8 +65,8 @@ def categoryVulnerabilidades(request):
 
 def blogs(request):
     blogs = Post.objects.all()
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
-    category = Category.objects.all()
+    blog_latest = Post.objects.order_by('id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    category = Category.objects.all().order_by('title')
 
     paginator = Paginator(blogs, 3)  # Show 3 contacts per page.
     page_number = request.GET.get('page')
@@ -80,14 +80,24 @@ def blogs(request):
     return render(request, "blog/blogs.html", conteudo)
 
 
+# def categoriasMenu():
+#     categorias = Category.objects.all().order_by('title')
+#     print(categorias)
+#     return categorias
+
+
 def blogDetail(request, id, slug):
     blogdetails = Post.objects.get(pk=id)
+    # print('blogdetails ::::::::::::::::::', blogdetails)
     comments = Comment.objects.filter(post_id=id, status='Lido')
+    # for c in comments:
+    #     print('Comentários ::::::::::::::::::', c['comment'])
     # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
     # outro jeito de contar os comentários
     totalcomments = 0
     for i in comments:
         totalcomments += 1
+
 
     blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     categorys = Category.objects.all()
@@ -110,6 +120,7 @@ def addcomment(request, id):
             data = Comment()
             data.name = form.cleaned_data['name']
             data.comment = form.cleaned_data['comment']
+            data.email = form.cleaned_data['email']
             data.post_id = id
             data.save()
             return HttpResponseRedirect(url)
