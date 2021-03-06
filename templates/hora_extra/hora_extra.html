@@ -212,7 +212,7 @@
 
 <script>
 
-    var listaAddChegadas = []
+    let listaAddChegadas = []
     /* Pegando o valor que é digitado no campo chegadas e adicionar a minha variavel lista */
     $("#btnAddChegadas").on('click', function(){
         let hrEnt = $("#hrEntrada").val();
@@ -257,9 +257,10 @@
               $('#hora_extra_primeiro_periodo').text(response.hora_extra_primeiro_periodo);
               // $('#hora_extra_segundo_periodo').text(response.hora_extra_segundo_periodo);
               $('#total').text(response.total);
-              $('#hrEntrada').val();
-              $('#hrChegada').val();
-              $('#edtListaAddChegadas').val();
+              $('#hrEntrada').val('');
+              $('#hrChegada').val('');
+              $('#edtListaAddChegadas').val('');
+              listaAddChegadas = []
             }
         })
     });
