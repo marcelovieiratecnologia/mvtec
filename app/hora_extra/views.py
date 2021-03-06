@@ -4,11 +4,11 @@ from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirec
 from django.template.loader import render_to_string
 
 # Variáveis Globais
-listaHrEntrada = []
-listaHrSaidas = []
+# listaHrEntrada = []
+# listaHrSaidas = []
 
-lsCalculaDifEntrada = []  # Lista que será adicionado as Diferenças da entrada
-lsCalculaDifSaida = []  # Lista que será adicionado as Diferenças da Saída
+# lsCalculaDifEntrada = []  # Lista que será adicionado as Diferenças da entrada
+# lsCalculaDifSaida = []  # Lista que será adicionado as Diferenças da Saída
 
 
 def timedelta_to_string(value, format='%H:%M'):
@@ -90,15 +90,15 @@ class Calculo():
 
     # @@@@@@   CALCULA ENTRADA @@@@@@@
     # CALCULA A DIFERENÇA ENTRE A HORA QUE ENTRO COM AS HORAS QUE CHEGUEI E GUARDA EM UMA LISTA
-    def calculo_horas_extras_antes_entradas(self, hrEntrada, listaHrChegadas):
-        hrEntrada = str(hrEntrada)  # '08:30:00'  # Meu Horário de Entrada
+    def calculo_horas_extras_antes_entradas(self):
+        hrEntrada = str(self.hrEntrada)  # '08:30:00'  # Meu Horário de Entrada
         h, m, s = (map(int, hrEntrada.split(':')))
         HrEntrada = datetime.timedelta(0, s, 0, 0, m, h)
 
         # Lista com Horários que ENTREI mais CEDO na Empresa
 
-        listHrChegadas = listaHrChegadas  # [hrChegada]   # ['07:30:00']
-        # lsCalculaDifEntrada = []  # Lista que será adicionado as Diferenças da entrada
+        listHrChegadas = self.listaHrChegadas  # [hrChegada]   # ['07:30:00']
+        lsCalculaDifEntrada = []  # Lista que será adicionado as Diferenças da entrada
 
         HrBanco = []  # Lista que será adicionado as Diferenças
 
@@ -180,6 +180,7 @@ class Calculo():
 
 
 def calcula_hora_extra(request):
+    print(request.POST)
     if request.method == 'POST':
         entrada = request.POST.get('hrEntrada')
         lista_add_chegadas = request.POST.get('edtListaAddChegadas')
@@ -210,8 +211,8 @@ def calculo_hora_extra_primeiro_periodo(entrada, lista_add_chegadas):
     hrEntrada = entrada
 
     if (hrEntrada != '') and (horarios_chegadas != ''):
-        calculoHorasExtrasAntesEntradas = Calculo(
-            hrEntrada, hrChegada, listaHrChegadas).calculo_horas_extras_antes_entradas(hrEntrada, listaHrChegadas)
+        calculo = Calculo(hrEntrada, hrChegada, listaHrChegadas)
+        calculoHorasExtrasAntesEntradas = calculo.calculo_horas_extras_antes_entradas()
     else:
         calculoHorasExtrasAntesEntradas = ''
 
