@@ -10,6 +10,11 @@ lsCalculaDifEntrada = []  # Lista que será adicionado as Diferenças da entrada
 lsCalculaDifSaida = []  # Lista que será adicionado as Diferenças da Saída
 
 
+def calculo_horas_extras(request):
+    pass
+    # TemplateView.as_view(template_name='calculaHorasDia/calculaHorasDia.html')
+
+
 class Calculo():
     def __init__(self, hrEntrada=0, hrChegada=0, listaHrChegadas=0, hrSaida=0, hrQueSaiu=0, listaHrSaidas=0):
         self.hrEntrada = hrEntrada

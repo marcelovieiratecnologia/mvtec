@@ -23,15 +23,15 @@ from django.views.generic import TemplateView  # No Momento Fora de USO , estou 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('app.home.urls')), # aponta para home tb .. como pode ver essa e a debaixo aponta para mesmo URLS
-    path('home/', include('app.home.urls')),   # path('', TemplateView.as_view(template_name='home.html')),
-    path('blog/', include('app.blog.urls')),   # path('', TemplateView.as_view(template_name='home.html')),
-    path('calculaHorasDia/', include('app.calculaHorasDia.urls')), # path('calculaHorasDia/', TemplateView.as_view(template_name='calculaHorasDia/teste.html')),
+    path('home/', include('app.home.urls')),
+    path('blog/', include('app.blog.urls')),
+    path('calcula-horas-dia/', include('app.calculaHorasDia.urls')),
     path('', include('app.blog.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')), # conforme solicitado no manual o CKEDITOR (GitHub CkEditor Django) adicionei essas linha
+    # conforme solicitado no manual o CKEDITOR (GitHub CkEditor Django) adicionei essas linha
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
-]# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) **** ESTOU USANDO DA FORMA QUE ESTA ABAIXO
+]  # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) **** ESTOU USANDO DA FORMA QUE ESTA ABAIXO
 
 if settings.DEBUG:
-    #para funcionar os arquivos estaticos em DEBUG (Images, css, javascript, etc .)
+    # para funcionar os arquivos estaticos em DEBUG (Images, css, javascript, etc .)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
