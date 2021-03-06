@@ -12,14 +12,14 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from decouple import config, Csv
-# from dj_database_url import parse as dburl
+from dj_database_url import parse as dburl
 from pathlib import Path
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__)) # so para guardar o caminho absoluto do diretorio "/home/marcelo/PythonProjects/proj_mvtec/site_mvtec/mvtec"
-# print(PROJECT_DIR)
+# so para guardar o caminho absoluto do diretorio "/home/marcelo/PythonProjects/proj_mvtec/site_mvtec/mvtec"
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -73,7 +73,7 @@ ROOT_URLCONF = 'mvtec.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates',],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,24 +92,9 @@ WSGI_APPLICATION = 'mvtec.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-# Link onde peguei essa config e mostra como irei fazer para acetar no HEROKU
-#TODO: ACHO QUE ACERTEI(Acertar a conexão do postgresql para que use User+Senha+Port do arquivo env_gen.py)
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_BASE_NAME'),  #'mvtecbd',
-        # 'NAME': os.path.join(BASE_DIR, 'mydb'),
-        'USER': config('DB_USER'), #'postgres',
-        'PASSWORD': config('DB_PASSWORD'), #'1234',
-        'HOST': config('DB_HOST'), #'127.0.0.1',
-        'PORT': config('DB_PORT'), # '', # 8000 is default
-    }
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
 
 # Password validation
