@@ -11,8 +11,8 @@ lsCalculaDifSaida = []  # Lista que será adicionado as Diferenças da Saída
 
 
 def hora_extra(request):
-    pass
-    # TemplateView.as_view(template_name='calculaHorasDia/calculaHorasDia.html')
+    template_name = 'hora_extra/hora_extra.html'
+    return render(request, template_name)
 
 
 class Calculo():
@@ -247,23 +247,23 @@ def calculo_hora_extra_segundo_periodo(request):
     return calculoHorasExtrasDepoisSaidas
 
 
-def calcula_horas_extras(request):
-    url = request.META.get('HTTP_REFERER')
-    # rendered = render_to_string('calculaHorasDia/calculaHorasDia.html')
-    calculoHorasPrimeiroPeriodo = 0
-    calculoTotal = 0
+# def calcula_horas_extras(request):
+#     url = request.META.get('HTTP_REFERER')
+#     # rendered = render_to_string('calculaHorasDia/calculaHorasDia.html')
+#     calculoHorasPrimeiroPeriodo = 0
+#     calculoTotal = 0
 
-    if request.method == 'POST':
-        calculoHorasPrimeiroPeriodo = calculo_horas_extras_primeiro_periodo(request)
-        # print('PRIMEIRO:::: ', calculoHorasPrimeiroPeriodo)
+#     if request.method == 'POST':
+#         calculoHorasPrimeiroPeriodo = calculo_horas_extras_primeiro_periodo(request)
+#         # print('PRIMEIRO:::: ', calculoHorasPrimeiroPeriodo)
 
-        # calculoHorasSegundoPeriodo = calculo_horas_extras_segundo_periodo(request)
-        # print('SEGUNDO:::: ',calculoHorasSegundoPeriodo)
-        #calculoTotal = calculoHorasPrimeiroPeriodo + calculoHorasSegundoPeriodo
+#         # calculoHorasSegundoPeriodo = calculo_horas_extras_segundo_periodo(request)
+#         # print('SEGUNDO:::: ',calculoHorasSegundoPeriodo)
+#         #calculoTotal = calculoHorasPrimeiroPeriodo + calculoHorasSegundoPeriodo
 
-        calculoTotal = calculoHorasPrimeiroPeriodo
+#         calculoTotal = calculoHorasPrimeiroPeriodo
 
-        return render(request, 'calcula_horas_dia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo': calculoHorasPrimeiroPeriodo,
-                                                                          #                                                             # 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
-                                                                          'calculoTotal': calculoTotal})
-    return render(request, 'calcula_horas_dia/calculaHorasDia.html')
+#         return render(request, 'calcula_horas_dia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo': calculoHorasPrimeiroPeriodo,
+#                                                                           #                                                             # 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
+#                                                                           'calculoTotal': calculoTotal})
+#     return render(request, 'calcula_horas_dia/calculaHorasDia.html')
