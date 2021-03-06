@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     # My Apps
     # 'app',
     'app.home',
-    'app.calcula_horas_dia',
+    'app.hora_extra',
     'app.blog',
     'mvtec',
 ]

@@ -10,7 +10,7 @@ lsCalculaDifEntrada = []  # Lista que será adicionado as Diferenças da entrada
 lsCalculaDifSaida = []  # Lista que será adicionado as Diferenças da Saída
 
 
-def calculo_horas_extras(request):
+def hora_extra(request):
     pass
     # TemplateView.as_view(template_name='calculaHorasDia/calculaHorasDia.html')
 
@@ -171,7 +171,7 @@ class Calculo():
         return (somaSaida[0])
 
 
-def calculo_horas_extras_primeiro_periodo(request):
+def calculo_hora_extra_primeiro_periodo(request):
     horariosChegadas = ''
     hrEntrada = ''
     hrChegada = ''
@@ -207,7 +207,7 @@ def calculo_horas_extras_primeiro_periodo(request):
     return calculoHorasExtrasAntesEntradas
 
 
-def calculo_horas_extras_segundo_periodo(request):
+def calculo_hora_extra_segundo_periodo(request):
 
     if 'edtListaAddQueSaiu' in request.POST:
         horariosSaidas = request.POST.get('edtListaAddQueSaiu')  # string que trago do front com todos os horarios

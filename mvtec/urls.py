@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('app.home.urls')),
     path('blog/', include('app.blog.urls')),
-    path('calcula-horas-dia/', include('app.calcula_horas_dia.urls')),
+    path('hora-extra/', include('app.hora_extra.urls')),
     path('', include('app.blog.urls')),
     # conforme solicitado no manual o CKEDITOR (GitHub CkEditor Django) adicionei essas linha
     path('ckeditor/', include('ckeditor_uploader.urls')),
