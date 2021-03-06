@@ -4,6 +4,7 @@ from app.hora_extra import views as v
 
 urlpatterns = [
     path('', v.hora_extra, name='hora_extra'),
+    path('calcula-hora-extra/', v.calcula_hora_extra, name='calcula_hora_extra'),
     path(
         'primeiro-periodo/',
         v.calculo_hora_extra_primeiro_periodo,

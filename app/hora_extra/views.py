@@ -1,6 +1,7 @@
+import datetime
+from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 from django.template.loader import render_to_string
-import datetime
 
 # Variáveis Globais
 listaHrEntrada = []
@@ -8,6 +9,13 @@ listaHrSaidas = []
 
 lsCalculaDifEntrada = []  # Lista que será adicionado as Diferenças da entrada
 lsCalculaDifSaida = []  # Lista que será adicionado as Diferenças da Saída
+
+
+def timedelta_to_string(value, format='%H:%M'):
+    '''
+    Transforma timedelta em string no formato %H:%M.
+    '''
+    return datetime.datetime.strftime(datetime.datetime.strptime(str(value), '%H:%M:%S'), '%H:%M')
 
 
 def hora_extra(request):
@@ -171,39 +179,42 @@ class Calculo():
         return (somaSaida[0])
 
 
-def calculo_hora_extra_primeiro_periodo(request):
-    horariosChegadas = ''
+def calcula_hora_extra(request):
+    if request.method == 'POST':
+        entrada = request.POST.get('hrEntrada')
+        lista_add_chegadas = request.POST.get('edtListaAddChegadas')
+
+        hora_extra_primeiro_periodo = calculo_hora_extra_primeiro_periodo(entrada, lista_add_chegadas)
+        # hora_extra_segundo_periodo = calculo_hora_extra_segundo_periodo(entrada, lista_add_chegadas)
+        total = hora_extra_primeiro_periodo  # + hora_extra_segundo_periodo
+
+        data = {
+            'hora_extra_primeiro_periodo': timedelta_to_string(hora_extra_primeiro_periodo),
+            'total': timedelta_to_string(total),
+        }
+        return JsonResponse(data)
+
+    return JsonResponse({})
+
+
+def calculo_hora_extra_primeiro_periodo(entrada, lista_add_chegadas):
+    horarios_chegadas = ''
     hrEntrada = ''
     hrChegada = ''
 
-    # if 'edtListaAddChegadas' in request.GET:
-    horariosChegadas = request.POST.get('edtListaAddChegadas', "")
-    # if request.metho == 'GET':
-    #   # print(':::::::::::::', request.GET.get('edtListaAddChegadas'))
-    #   horariosChegadas = request.GET.get('edtListaAddChegadas')  # string que trago do front com todos os horarios
-    #   #print('Horarios de Chegada-------- : ', horariosChegadas)
-    # else:
-    #   horariosChegadas = ''
+    horarios_chegadas = lista_add_chegadas
 
-    listaHrChegadas = horariosChegadas.split(',')  # convertendo em uma lista a string que trouxe do front
+    listaHrChegadas = horarios_chegadas.split(',')  # convertendo em uma lista a string que trouxe do front
 
     # Referente ao calculo antes de começar a trabalhar
-    if 'hrEntrada' in request.POST:
-        hrEntrada = request.POST['hrEntrada']
-    else:
-        hrEntrada = ''
-    if 'hrChegada' in request.POST:
-        hrChegada = request.POST['hrChegada']
-    else:
-        hrChegada = ''
+    hrEntrada = entrada
 
-    if (hrEntrada != '') and (horariosChegadas != ''):  # and (hrChegada != ''):
+    if (hrEntrada != '') and (horarios_chegadas != ''):
         calculoHorasExtrasAntesEntradas = Calculo(
             hrEntrada, hrChegada, listaHrChegadas).calculo_horas_extras_antes_entradas(hrEntrada, listaHrChegadas)
     else:
         calculoHorasExtrasAntesEntradas = ''
 
-    # return render(request,'calculaHorasDia/calculaHorasDia.html', {'hrEntrada':hrEntrada, 'hrChegada':hrChegada, 'calculoHorasExtrasAntesEntradas':calculoHorasExtrasAntesEntradas})
     return calculoHorasExtrasAntesEntradas
 
 
@@ -245,25 +256,3 @@ def calculo_hora_extra_segundo_periodo(request):
     # todo: Estou com o seguinte problema, se mando calcular atraveś do clique do botão , funciona certinho, mas se aperto o F5 , por mais que não tenha nenhum valor dentro dos inputs ele passa pela função e tras sei lá da onde o ultimo valor que adicionei e da um resoltado para o usuário
     # return render(request,'calculaHorasDia/calculaHorasDia.html', {'hrSaida':hrSaida, 'hrQueSaiu':hrQueSaiu, 'calculoHorasExtrasDepoisSaidas':calculoHorasExtrasDepoisSaidas})
     return calculoHorasExtrasDepoisSaidas
-
-
-# def calcula_horas_extras(request):
-#     url = request.META.get('HTTP_REFERER')
-#     # rendered = render_to_string('calculaHorasDia/calculaHorasDia.html')
-#     calculoHorasPrimeiroPeriodo = 0
-#     calculoTotal = 0
-
-#     if request.method == 'POST':
-#         calculoHorasPrimeiroPeriodo = calculo_horas_extras_primeiro_periodo(request)
-#         # print('PRIMEIRO:::: ', calculoHorasPrimeiroPeriodo)
-
-#         # calculoHorasSegundoPeriodo = calculo_horas_extras_segundo_periodo(request)
-#         # print('SEGUNDO:::: ',calculoHorasSegundoPeriodo)
-#         #calculoTotal = calculoHorasPrimeiroPeriodo + calculoHorasSegundoPeriodo
-
-#         calculoTotal = calculoHorasPrimeiroPeriodo
-
-#         return render(request, 'calcula_horas_dia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo': calculoHorasPrimeiroPeriodo,
-#                                                                           #                                                             # 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
-#                                                                           'calculoTotal': calculoTotal})
-#     return render(request, 'calcula_horas_dia/calculaHorasDia.html')
