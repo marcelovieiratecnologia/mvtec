@@ -179,11 +179,11 @@ def calculo_horas_extras_primeiro_periodo(request):
     # if 'edtListaAddChegadas' in request.GET:
     horariosChegadas = request.POST.get('edtListaAddChegadas', "")
     # if request.metho == 'GET':
-    # 	# print(':::::::::::::', request.GET.get('edtListaAddChegadas'))
-    # 	horariosChegadas = request.GET.get('edtListaAddChegadas')  # string que trago do front com todos os horarios
-    # 	#print('Horarios de Chegada-------- : ', horariosChegadas)
+    #   # print(':::::::::::::', request.GET.get('edtListaAddChegadas'))
+    #   horariosChegadas = request.GET.get('edtListaAddChegadas')  # string que trago do front com todos os horarios
+    #   #print('Horarios de Chegada-------- : ', horariosChegadas)
     # else:
-    # 	horariosChegadas = ''
+    #   horariosChegadas = ''
 
     listaHrChegadas = horariosChegadas.split(',')  # convertendo em uma lista a string que trouxe do front
 
@@ -237,9 +237,9 @@ def calculo_horas_extras_segundo_periodo(request):
 
     # dic_CalcHrEnt_CalcHrSai = {}
     # if calculo_horas_extras_antes_entradas != '':
-    # 	dic_CalcHrEnt_CalcHrSai['HrExtraEntrada'] = calculoHorasExtrasAntesEntradas
+    #   dic_CalcHrEnt_CalcHrSai['HrExtraEntrada'] = calculoHorasExtrasAntesEntradas
     # if calculo_horas_extras_depois_saidas != '':
-    # 	dic_CalcHrEnt_CalcHrSai['HrExtraSaida'] = calculoHorasExtrasDepoisSaidas
+    #   dic_CalcHrEnt_CalcHrSai['HrExtraSaida'] = calculoHorasExtrasDepoisSaidas
     # print(dic_CalcHrEnt_CalcHrSai)
 
     # todo: Estou com o seguinte problema, se mando calcular atraveś do clique do botão , funciona certinho, mas se aperto o F5 , por mais que não tenha nenhum valor dentro dos inputs ele passa pela função e tras sei lá da onde o ultimo valor que adicionei e da um resoltado para o usuário
@@ -249,7 +249,7 @@ def calculo_horas_extras_segundo_periodo(request):
 
 def calcula_horas_extras(request):
     url = request.META.get('HTTP_REFERER')
-    rendered = render_to_string('calculaHorasDia/calculaHorasDia.html')
+    # rendered = render_to_string('calculaHorasDia/calculaHorasDia.html')
     calculoHorasPrimeiroPeriodo = 0
     calculoTotal = 0
 
@@ -263,7 +263,7 @@ def calcula_horas_extras(request):
 
         calculoTotal = calculoHorasPrimeiroPeriodo
 
-        return render(request, 'calculaHorasDia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo': calculoHorasPrimeiroPeriodo,
-                                                                        # 															# 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
-                                                                        'calculoTotal': calculoTotal})
-    return render(request, 'calculaHorasDia/calculaHorasDia.html')
+        return render(request, 'calcula_horas_dia/calculaHorasDia.html', {'calculoHorasPrimeiroPeriodo': calculoHorasPrimeiroPeriodo,
+                                                                          #                                                             # 'calculoHorasSegundoPeriodo':calculoHorasSegundoPeriodo,
+                                                                          'calculoTotal': calculoTotal})
+    return render(request, 'calcula_horas_dia/calculaHorasDia.html')
