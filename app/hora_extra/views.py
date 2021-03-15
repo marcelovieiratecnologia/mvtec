@@ -298,9 +298,7 @@ def calcula_hora_extra(request):
         hora_extra_primeiro_periodo = calculo_hora_extra_primeiro_periodo(entrada, lista_add_chegadas)
         hora_extra_segundo_periodo = calculo_hora_extra_segundo_periodo(saida, lista_add_saidas)
 
-
-        # total = hora_extra_primeiro_periodo  # + hora_extra_segundo_periodo
-        total = hora_extra_segundo_periodo
+        total = hora_extra_primeiro_periodo  + hora_extra_segundo_periodo
 
         data = {
             'hora_extra_primeiro_periodo': timedelta_to_string(hora_extra_primeiro_periodo),
