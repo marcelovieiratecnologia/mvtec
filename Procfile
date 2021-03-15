@@ -1,2 +1,1 @@
-# release: python manage.py migratre
-web: gunicorn mvtec.wsgi --preload --log-file -
+web: gunicorn mvtec.wsgi --log-file -
