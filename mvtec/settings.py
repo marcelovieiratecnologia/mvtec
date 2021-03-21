@@ -164,3 +164,5 @@ CKEDITOR_UPLOAD_PATH = "images/uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
 django_heroku.settings(locals())
+
+LOGIN_URL = 'home' # com isso, aponto qual é a minha página inicial
