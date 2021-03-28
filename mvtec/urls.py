@@ -30,8 +30,8 @@ urlpatterns = [
     # conforme solicitado no manual o CKEDITOR (GitHub CkEditor Django) adicionei essas linha
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
-]  # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) **** ESTOU USANDO DA FORMA QUE ESTA ABAIXO
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # ESTOU USANDO DA FORMA QUE ESTA ABAIXO
 
-if settings.DEBUG:
-    # para funcionar os arquivos estaticos em DEBUG (Images, css, javascript, etc .)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     # para funcionar os arquivos estaticos em DEBUG (Images, css, javascript, etc .)
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
