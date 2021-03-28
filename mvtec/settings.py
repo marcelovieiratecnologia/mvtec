@@ -148,10 +148,11 @@ USE_TZ = True
 # STATIC_ROOT = '/staticfiles'
 
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static/"),
 ]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CKEDITOR_CONFIGS = {
@@ -165,4 +166,4 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 
 django_heroku.settings(locals())
 
-LOGIN_URL = 'home' # com isso, aponto qual é a minha página inicial
+# LOGIN_URL = 'home' # com isso, aponto qual é a minha página inicial

@@ -3,7 +3,7 @@ from .views import *
 
 
 urlpatterns = [
-    path('', indexblog, name='blog'),
+    # path('', indexblog, name='blog'),
     path('blogs/', blogs, name='blogs'),
     path('blog-detail/<int:id>/<slug:slug>', blog_detail, name='blogdetail'),
     # path('categorias-menu', categoriasMenu, name='categoriasMenu'),

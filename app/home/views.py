@@ -10,7 +10,7 @@ def home(request):
 
 def contact(request):
     if request.method == 'POST':
-        print('0')
+        # print('0')
         form = ContactForm(request.POST)
         print('1')
         if form.is_valid():
