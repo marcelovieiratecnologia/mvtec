@@ -16,7 +16,7 @@
             <div class="content">
               <ul>
                 {% for item in blog_latest %}
-                <li><a href="blogdetail/{{item.id}}/{{item.slug}}">
+                <li><a href="/blog/blog-detail/{{item.id}}/{{item.slug}}">
                   <h5>{{item.title}}</h5>
                   <span>{{item.created_at|date:"d/m/Y"}}</span>
                 </a></li>
@@ -25,6 +25,21 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-12">
+          <div class="sidebar-item tags">
+            <div class="sidebar-heading">
+              <h2>Tag Categorias</h2>
+            </div>
+            <div class="content">
+              <ul>
+                {% for itemtag in categorys %}
+                  <li><a href="/blog/category/{{itemtag.id}}">{{itemtag.title}}</a></li>
+                {% endfor itemtag  %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
 <!--        <div class="col-lg-12">-->
 <!--          <div class="sidebar-item categories">-->
 <!--            <div class="sidebar-heading">-->
@@ -42,21 +57,7 @@
 <!--            </div>-->
 <!--          </div>-->
 <!--        </div>-->
-        <div class="col-lg-12">
-          <div class="sidebar-item tags">
-            <div class="sidebar-heading">
-              <h2>Tag Categorias</h2>
-            </div>
-            <div class="content">
-              <ul>
-                {% for item in categorys %}
-                  <li><a href="#">{{item.title}}</a></li>
-                {% endfor item  %}
-              </ul>
 
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

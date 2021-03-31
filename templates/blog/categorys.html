@@ -28,7 +28,7 @@
                     </div>
                     <div class="down-content">
                       <span>{{cat.category}}</span>
-                      <a href="blog-detail/{{cat.id}}/{{cat.slug}}"><h4>{{cat.title}}</h4></a>
+                      <a href="/blog/blog-detail/{{cat.id}}/{{cat.slug}}"><h4>{{cat.title}}</h4></a>
                       <ul class="post-info">
                         <li><a href="#">{{cat.user.last_name}}</a></li>
                         <li><a href="#">{{cat.updated_at|date:"d/m/Y"}}</a></li>
@@ -40,7 +40,7 @@
                           <div class="col-lg-12">
                             <ul class="post-tags">
                               <li><i class="fa fa-tags"></i></li>
-                              <li><a href="#">{{cat.category}}</a></li>
+                              <li><a href="/blog/category/{{cat.category_id}}">{{cat.category}}</a></li>
                             </ul>
                           </div>
                         </div>

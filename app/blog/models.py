@@ -32,9 +32,9 @@ class Post(models.Model):
     text = RichTextUploadingField(verbose_name='Texto')
     fonte = models.CharField(max_length=255, null=True)
 
-
     created_at = models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Alterado em', auto_now=True)
+
 
     def image_admin(self):
         if self.image:

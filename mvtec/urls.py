@@ -24,7 +24,7 @@ from django.views.generic import TemplateView  # No Momento Fora de USO , estou 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.home.urls')), # página inicial
-    path('blogs/', include('app.blog.urls')),
+    path('blog/', include('app.blog.urls')),
     path('hora-extra/', include('app.hora_extra.urls')),
     # conforme solicitado no manual o CKEDITOR (GitHub CkEditor Django) adicionei essas linha
     path('ckeditor/', include('ckeditor_uploader.urls')),

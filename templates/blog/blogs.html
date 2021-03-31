@@ -28,11 +28,14 @@
                     </div>
                     <div class="down-content">
                       <span>{{blog.category}}</span>
-                      <a href="blog-detail/{{blog.id}}/{{blog.slug}}"><h4>{{blog.title}}</h4></a>
+                      <a href="/blog/blog-detail/{{blog.id}}/{{blog.slug}}"><h4>{{blog.title}}</h4></a>
+<!--                      TODO:  preciso mudar essa questão de chamada de HREF .. preciso passar a usar o href URL -->
+<!--                      <a href="{ url 'blog-detail/{{blog.id}}/{{blog.slug}}' %}"><h4>{{blog.title}}</h4></a>-->
                       <ul class="post-info">
                         <li><a href="#">{{blog.user.last_name}}</a></li>
                         <li><a href="#">{{blog.updated_at|date:"d/m/Y"}}</a></li>
                         <li><a href="#">12 Comments</a></li>
+<!--                        <li><a href="#">blog.comments</a></li>-->
                       </ul>
                       <p>{{blog.description}}</p>
                       <div class="post-options">
@@ -40,7 +43,7 @@
                           <div class="col-lg-12">
                             <ul class="post-tags">
                               <li><i class="fa fa-tags"></i></li>
-                              <li><a href="#">{{blog.category}}</a></li>
+                              <li><a href="/blog/category/{{blog.category_id}}">{{blog.category}}</a></li>
                             </ul>
                           </div>
                         </div>

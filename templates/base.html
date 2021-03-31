@@ -69,12 +69,12 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Categorias:</h6>
 <!--                        <a class="collapse-item" href="blogs">Todas</a> &lt;!&ndash;  Esse é um jeito de chamar  sem usar URL   &ndash;&gt;-->
-                        <a class="collapse-item" href="{% url 'blogs' %}">TODAS</a> <!--  Esse é outro jeito de chamar usando URL   -->
-                        <a class="collapse-item" href="{% url 'categorypython' %}">Python</a>
-                        <a class="collapse-item" href="{% url 'categorydjango' %}">Django</a>
-                        <a class="collapse-item" href="{% url 'categorylaravel' %}">Laravel</a>
-                        <a class="collapse-item" href="{% url 'categorymysql' %}">Mysql</a>
-                        <a class="collapse-item" href="{% url 'categoryvulnerabilidades' %}">Vulnerabilidades</a>
+                        <a class="collapse-item" href="{% url 'appblog:blogs' %}">TODAS</a> <!--  Estou usando app_name na URL's por isso  passo primeiro o app_name e depois a viu blogs ex: "blog:blogs"   -->
+                        <a class="collapse-item" href="{% url 'appblog:categorypython' %}">Python</a>
+                        <a class="collapse-item" href="{% url 'appblog:categorydjango' %}">Django</a>
+                        <a class="collapse-item" href="{% url 'appblog:categorylaravel' %}">Laravel</a>
+                        <a class="collapse-item" href="{% url 'appblog:categorymysql' %}">Mysql</a>
+                        <a class="collapse-item" href="{% url 'appblog:categoryvulnerabilidades' %}">Vulnerabilidades</a>
 <!--                        <a class="collapse-item" href="{ url 'categoriasMenu' %}">TODAS</a>-->
 
                     </div>
