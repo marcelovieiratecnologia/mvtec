@@ -18,6 +18,12 @@ def indexblog(request):
                 }
     return render(request, "blog/bloghome.html", conteudo)
 
+
+def category_menu(request):
+    categorias_menu = Category.objects.all()
+    return render(request, 'blog/categorys.html', {'category_menu': category_menu})
+
+
 def category_laravel(request):
     category = Post.objects.filter(category_id=1) # categoria do Laravel
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
@@ -64,6 +70,7 @@ def category_vulnerabilidades(request):
 
 
 def category(request, id):
+    categorias_menu = Category.objects.order_by('title')  # transformando meu menu em dinâmico
     category = Post.objects.filter(category_id=id) # categoria do VULNERABILIDADES
     categorys = Category.objects.all()
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
@@ -71,10 +78,12 @@ def category(request, id):
     # TODO: tentando monstrar os comentários
     # total = Comment.objects.filter(post_id=id, status='Lido').count()
 
-    context = {'category': category,
-               'blog_latest': blog_latest,
-               'categorys': categorys,
-               # 'totalcomments': totalcomments,
+    context = {
+                'categorias_menu':categorias_menu,
+                'category': category,
+                'blog_latest': blog_latest,
+                'categorys': categorys,
+                # 'totalcomments': totalcomments,
                }
     return render(request, 'blog/categorys.html', context)
 

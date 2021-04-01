@@ -50,9 +50,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'home' %}">
                     <i class="fas fa-code"></i>
-                    <span>MVTecnologia</span></a>
+                     <span>MVTecnologia</span></a>
             </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -65,6 +64,17 @@
                     <span>BLOG</span>
                 </a>
 <!--                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
+
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Teste View Home:</h6>
+                        {% for categoria in categorias_menu %}
+                            <a class="collapse-item" href="{% url 'appblog:category' categoria.id %}">{{categoria}} -- {{categoria.id}}</a>
+                        {% endfor categoria %}
+<!--                        <a class="collapse-item" href="{ url 'appblog:blogs' %}">TODAS</a> &lt;!&ndash;  Estou usando app_name na URL's por isso  passo primeiro o app_name e depois a viu blogs ex: "blog:blogs"   &ndash;&gt;-->
+                    </div>
+                </div>
+
                 <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Categorias:</h6>
@@ -147,7 +157,7 @@
 
                     <!-- Page Heading -->
                     {% block content %}
-                        <h1 class="h3 mb-4 text-gray-800">Home Page</h1>
+                        <h1 class="h3 mb-4 text-gray-800"></h1>
                     {% endblock content %}
 
                 </div>
