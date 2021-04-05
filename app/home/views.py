@@ -14,10 +14,9 @@ def home(request):
 
 def menu():
     categorias_menu = Category.objects.all() #.order_by('title') # transformando meu menu em dinâmico
-    print(categorias_menu)
+    # print(categorias_menu)
     # print(categorias_menu.id)
 
-menu()
 
 def contact(request):
     if request.method == 'POST':

@@ -147,19 +147,24 @@ USE_TZ = True
 
 # STATIC_ROOT = '/staticfiles'
 
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'basic',
     },
 }
+
+MEDIA_ROOT = (
+		os.path.join(BASE_DIR, 'media')
+)
+MEDIA_URL = '/media/'
 
 CKEDITOR_UPLOAD_PATH = "images/uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"

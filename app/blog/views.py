@@ -69,7 +69,7 @@ def blogs(request):
                 }
     return render(request, "blog/blogs.html", content)
 
-categorys = Category.objects.all()
+# categorys = Category.objects.all()
 
 def blog_detail(request, id, slug):
     categorias_menu = Category.objects.order_by('title')  # transformando meu menu em dinâmico
