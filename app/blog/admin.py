@@ -6,6 +6,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title','slug','created_at']
     prepopulated_fields = {'slug':('title',)}
 
+
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'created_at', 'updated_at']
     prepopulated_fields = {'slug':('title',) }
