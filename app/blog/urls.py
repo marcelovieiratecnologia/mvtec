@@ -8,7 +8,7 @@ urlpatterns = [
     path('blogs/', blogs, name='blogs'),
     path('blog-detail/<int:id>/<slug:slug>', blog_detail, name='blogdetail'),
     path('category/<int:id>', category, name='category'),
-    path('add-comment/<int:id>/', add_comment, name='addcomment'),
+    path('add-comment/<int:id>', add_comment, name='addcomment'),
 
     # Views desativadas
     # path('category-python/', category_python, name='categorypython'),

@@ -55,7 +55,7 @@ def blogs(request):
     # for i in comments:
     #     totalcomments += 1
 
-    paginator = Paginator(blogs, 3)  # Show 3 contacts per page.
+    paginator = Paginator(blogs, 4)  # Show 3 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     content = {
@@ -77,8 +77,25 @@ def blog_detail(request, id, slug):
     blogdetails = Post.objects.get(pk=id)
     comments = Comment.objects.filter(post_id=id, status='Lido')
     blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
-    # for c in comments:
-    #     print('Comentários ::::::::::::::::::', c['comment'])
+
+
+    # TODO:: criar uma forma randomica de imprimiras as imagens para os comments
+    # print(comments)
+
+    # image_authors =
+    print(type(comments))
+    tupla_comments = ()
+    list_comments = []
+    # istrue = bool
+    for c in comments:
+        # if istrue:
+        tupla_comments = (c.id, c.created_at)
+        list_comments.append(tupla_comments)
+    print(list_comments)
+
+    # dict_comments = dict(list_comments)
+    # print(dict_comments)
+
     # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
     # outro jeito de contar os comentários
     totalcomments = 0
@@ -96,6 +113,7 @@ def blog_detail(request, id, slug):
 
 
 def add_comment(request, id):
+    print('aquiiii')
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
         form = CommentForm(request.POST)

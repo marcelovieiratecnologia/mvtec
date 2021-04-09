@@ -72,19 +72,26 @@
                       {% endif %}
                     </div>
                     <div class="content">
-                      {% for comment in comments %}
                       <ul>
-                        <li>
-                          <div class="author-thumb mt-5">
-                            <img src="assets/images/comment-author-01.jpg" alt="">
-                          </div>
-                          <div class="right-content">
-                            <h4>{{comment.name}}<span>{{comment.created_at|date:"d/m/Y"}}</span></h4>
-                            <p>{{comment.comment}}</p>
-                          </div>
-                        </li>
+                          {% for comment in comments %}
+                            <!--{{forloop.counter}}-->
+                            {% if forloop.counter|divisibleby:2 %} <!--  Verificando se é divisivel por 2 para eu saber se é par ou impar  -->
+                                <li>
+                            {% else %}
+                                <li class="replied">
+                            {% endif %}
+                            <div class="author-thumb">
+                            <!--<img src="assets/images/comment-author-01.jpg" alt="">-->
+                                <img src="{% static 'blog/assets/images/comment-author-01.jpg' %}" alt="">
+                            </div>
+                            <div class="right-content">
+                                <h4>{{comment.name}}<span>{{comment.created_at|date:"d/m/Y"}}</span></h4>
+                                <p>{{comment.comment}}</p>
+                            </div>
+                            </li>
+                        <br >
+                          {% endfor comments %}
                       </ul>
-                      {% endfor comments%}
                     </div>
                   </div>
                 </div>
@@ -94,7 +101,7 @@
                       <h2>Deixe um Comentário</h2>
                     </div>
                     <div class="content">
-                      <form id="comment" action="/blog/addcomment/{{blogdetails.id}}" method="POST">
+                      <form id="comment" action=" /blog/add-comment/{{blogdetails.id}}" method="POST">
                         {% csrf_token %}
                         <div class="row">
                           <div class="col-md-6 col-sm-12">
