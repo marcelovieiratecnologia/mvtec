@@ -1,5 +1,9 @@
+import os
+from random import choice
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.conf import settings
+
 
 # My Views Creates
 from .models import Post, Category, Comment
@@ -77,43 +81,52 @@ def blog_detail(request, id, slug):
     blogdetails = Post.objects.get(pk=id)
     comments = Comment.objects.filter(post_id=id, status='Lido')
     blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
-
-
-    # TODO:: criar uma forma randomica de imprimiras as imagens para os comments
-    # print(comments)
-
-    # image_authors =
-    print(type(comments))
-    tupla_comments = ()
-    list_comments = []
-    # istrue = bool
-    for c in comments:
-        # if istrue:
-        tupla_comments = (c.id, c.created_at)
-        list_comments.append(tupla_comments)
-    print(list_comments)
-
-    # dict_comments = dict(list_comments)
-    # print(dict_comments)
-
-    # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
+    #  pegar o total de comentário
+        # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
     # outro jeito de contar os comentários
+
     totalcomments = 0
     for i in comments:
         totalcomments += 1
+
+    # TODO:  pegar as imagens de forma randômicas para colocar ela nos comentários do post
+    # IMAGENS FAKE NOS COMENTÁRIOS
+    # ..  as imagens possuem 100x100 está em um diretorio que eu criei media/images/img_authors_comments/comment'N'.jpg
+    # o nome dela é igual para todas mudando apenas o numero sequêncial final conforma mostrado acima
+
+    # ..::: Utilizar o "totalcomments" sabendo o total certo que tenho comentários trago o numero certo de imagens para colocar em cada comentário do post
+    # print(settings.BASE_DIR) # Utilizo a minha variável que já me da o caminho base do projeto
+    my_images_comments = os.listdir(os.path.join(settings.BASE_DIR, 'media/images/img_authors_comments')) # concateno com o caminho que sempre será fixo de onde esta as imagens
+    # print(type(my_images_comments))
+    # print(my_images_comments)
+    list_images_comments = [choice(my_images_comments) for _ in range(totalcomments)] # pegando de forma randominca imagens para os comentários, pego a quantidade certa de imagens para a qtde de comentarios
+    # print(list_images_comments)
+
+    images_comments = {'img':list_images_comments, 'comments':comments}
+
+    # print(type(img_coments))
+    # print(img_coments)
+    # print(type(img_coments['img']))
+    # print('Imagens:: ', img_coments['img'])
+    # print(type(img_coments['comments']))
+    # print('comantários:: ', img_coments['comments'])
+    # print('--------------')
+    # print(img_coments['comments'].index())
+
     context = {'blogdetails': blogdetails,
                'comments': comments,
+               'images_comments': images_comments,
                'totalcomments': totalcomments,
                'blog_latest': blog_latest,
                'categorys_tag': categorys_tag,
-               'categorias_menu':categorias_menu,
+               'categorias_menu': categorias_menu,
+               'list_images_comments': list_images_comments,
                }
 
     return render(request, 'blog/blogdetail.html', context)
 
 
 def add_comment(request, id):
-    print('aquiiii')
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST':
         form = CommentForm(request.POST)

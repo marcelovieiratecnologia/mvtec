@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load template_filter %}
 {% load static %}
 {% block title %} {{ block.super }} Blog  {% endblock title %}
 {% block css %}
@@ -73,19 +74,26 @@
                     </div>
                     <div class="content">
                       <ul>
+                            <!--{{forloop.counter}}  variável usada como contador -->
+                            <!--{{forloop.counter}}  assim ele começa do numero 1 -->
+                            <!--{{forloop.counter0}} assim ele começa do numero 0 -->
+                            <!--{{ list_images_comments.0 }} acessando o indice da minha lista -->
+
                           {% for comment in comments %}
-                            <!--{{forloop.counter}}-->
-                            {% if forloop.counter|divisibleby:2 %} <!--  Verificando se é divisivel por 2 para eu saber se é par ou impar  -->
+                            {% if forloop.counter|divisibleby:2 %} <!--forloop.counter de acordo com jinja é uma variavel usada para ITERAÇÃO e como ela me gera um sequencial verifica se par ou impar pelo "|divisibleby:2" -->
                                 <li>
                             {% else %}
                                 <li class="replied">
                             {% endif %}
+
                             <div class="author-thumb">
-                            <!--<img src="assets/images/comment-author-01.jpg" alt="">-->
-                                <img src="{% static 'blog/assets/images/comment-author-01.jpg' %}" alt="">
+<!--                              <img src="{% static 'images/img_authors_comments/comment1.jpg' %}" alt="">-->
+<!--                              <img src="{% static 'images/img_authors_comments/' %}{{ list_images_comments.0 }}"  alt="">-->
+                                  <img src="{% static 'images/img_authors_comments/' %}{{ list_images_comments|contador_para_listar_imagens:forloop.counter0 }}"  alt="">
                             </div>
                             <div class="right-content">
-                                <h4>{{comment.name}}<span>{{comment.created_at|date:"d/m/Y"}}</span></h4>
+                                <h4>{{comment.name}}<span>
+                                    {{comment.created_at|date:"d/m/Y"}}</span></h4>
                                 <p>{{comment.comment}}</p>
                             </div>
                             </li>

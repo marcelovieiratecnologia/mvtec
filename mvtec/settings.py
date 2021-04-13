@@ -17,9 +17,8 @@ from pathlib import Path
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-# so para guardar o caminho absoluto do diretorio "/home/marcelo/PythonProjects/proj_mvtec/site_mvtec/mvtec"
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent ## so para guardar o caminho absoluto do diretorio BASE do SITE : "/home/marcelo/PythonProjects/proj_mvtec/site_mvtec
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__)) ## so para guardar o caminho absoluto do diretorio onde e meu CORE : "/home/marcelo/PythonProjects/proj_mvtec/site_mvtec/mvtec"
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,6 +53,7 @@ INSTALLED_APPS = [
     'app.hora_extra',
     'app.blog',
     'mvtec',
+    'app.blog.templatetag',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +81,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'template_filter': 'app.blog.templatetag.template_filter',
+            }
         },
     },
 ]
@@ -151,6 +154,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
+    os.path.join(BASE_DIR, "media/"),
+
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
