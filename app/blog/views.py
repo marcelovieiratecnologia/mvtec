@@ -13,7 +13,7 @@ from .forms import CommentForm
 def indexblog(request):
     categorys = Category.objects.all()
     blog_slide_random = Post.objects.order_by('?')[:4]  # Aqui estou montando o SLIDE de forma randomica  e com apenas 4
-    blog_latest = Post.objects.order_by('id')[:8]  # Aqui estou montanto o meu conteúdo para a página e apenas 8 últimos
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:8]  # Aqui estou montanto o meu conteúdo para a página e apenas 8 últimos
     conteudo = {
                 'blog_slide_random': blog_slide_random,
                 'blog_latest': blog_latest,
@@ -29,9 +29,9 @@ def category_menu(request):
 
 def category(request, id):
     categorias_menu = Category.objects.order_by('title')  # transformando meu menu em dinâmico
-    category = Post.objects.filter(category_id=id)
+    category = Post.objects.filter(category_id=id, status_post='Publicado')
     categorys_tag = Category.objects.all()
-    blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     comments = Comment.objects.filter(post_id=id, status='Lido').count()
     context = {
                 'categorias_menu':categorias_menu,
@@ -47,8 +47,8 @@ def blogs(request):
     categorias_menu = Category.objects.order_by('title')  # transformando meu menu em dinâmico
     #category = Category.objects.all().order_by('title')
     categorys_tag = Category.objects.all()
-    blogs = Post.objects.all()
-    blog_latest = Post.objects.order_by('id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blogs = Post.objects.filter(status_post='Publicado')
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
 
     # comments = Comment.objects.filter(post_id=id, status='Lido')
     # for c in comments:
@@ -80,7 +80,7 @@ def blog_detail(request, id, slug):
     categorys_tag = Category.objects.all()
     blogdetails = Post.objects.get(pk=id)
     comments = Comment.objects.filter(post_id=id, status='Lido')
-    blog_latest = Post.objects.order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     #  pegar o total de comentário
         # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
     # outro jeito de contar os comentários

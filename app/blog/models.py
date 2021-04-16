@@ -20,6 +20,12 @@ class Category(models.Model):
         verbose_name_plural = 'Categorias'
 
 class Post(models.Model):
+    STATUS_POST = (
+        ('Publicado','Publicado'),
+        ('Não Publicado','Não Publicado'),
+        ('Arquivado','Arquivado'),
+    )
+    status_post = models.CharField(choices=STATUS_POST, max_length=14, default='Não Publicado')
     category = models.ForeignKey(Category, verbose_name='Categoria', on_delete=models.CASCADE, null=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 
@@ -31,6 +37,7 @@ class Post(models.Model):
     # text = models.TextField(verbose_name='Texto', null=False) Passei a usar o CKEDITOR, então mudei conforme a linha abaixo
     text = RichTextUploadingField(verbose_name='Texto')
     fonte = models.CharField(max_length=255, null=True)
+
 
     created_at = models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Alterado em', auto_now=True)

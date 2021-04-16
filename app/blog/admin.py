@@ -8,10 +8,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'created_at', 'updated_at']
+    list_display = ['status_post', 'title', 'category', 'created_at', 'updated_at']
     prepopulated_fields = {'slug':('title',) }
     readonly_fields = ('image_admin', )
-    list_filter = ['category']
+    list_filter = ['status_post','category']
 
 
 class CommentAdmin(admin.ModelAdmin):
