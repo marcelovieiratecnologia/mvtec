@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage', # 1 primeiro : como diz na Documentação abaixo do 'django.contrib.staticfiles', (documentação da biblioteca django-cloudnay-storage)
+    'cloudinary',         # 2 segundo : abaixo do 'cloudinary_storage', (documentação da biblioteca django-cloudnay-storage)
 
     # Apps de Terceiros
     'django_extensions',
@@ -55,6 +57,12 @@ INSTALLED_APPS = [
     'mvtec',
     'app.blog.templatetag',
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET'),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,7 +163,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
     os.path.join(BASE_DIR, "media/"),
-
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -170,6 +177,7 @@ MEDIA_ROOT = (
 		os.path.join(BASE_DIR, 'media')
 )
 MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' # tem que ser assim conforme documentação da biblioteca django-cloudnay-storage
 
 CKEDITOR_UPLOAD_PATH = "images/uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
