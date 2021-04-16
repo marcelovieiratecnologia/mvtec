@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'app.blog.templatetag',
 ]
 
+# Chaves de configuração para o Cloudnary Storage onde hospedo minhas imagens do projeto pq o Heroku não da conta
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUD_NAME'),
     'API_KEY': config('API_KEY'),

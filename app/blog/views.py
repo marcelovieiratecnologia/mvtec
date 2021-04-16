@@ -32,14 +32,13 @@ def category(request, id):
     category = Post.objects.filter(category_id=id)
     categorys_tag = Category.objects.all()
     blog_latest = Post.objects.order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
-    # TODO: tentando monstrar os comentários
-    # total = Comment.objects.filter(post_id=id, status='Lido').count()
+    comments = Comment.objects.filter(post_id=id, status='Lido').count()
     context = {
                 'categorias_menu':categorias_menu,
                 'category': category,
                 'blog_latest': blog_latest,
                 'categorys_tag': categorys_tag,
-                # 'totalcomments': totalcomments,
+                'comments': comments,
                }
     return render(request, 'blog/categorys.html', context)
 
@@ -50,6 +49,7 @@ def blogs(request):
     categorys_tag = Category.objects.all()
     blogs = Post.objects.all()
     blog_latest = Post.objects.order_by('id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+
     # comments = Comment.objects.filter(post_id=id, status='Lido')
     # for c in comments:
     #     print('Comentários ::::::::::::::::::', c['comment'])
@@ -99,11 +99,10 @@ def blog_detail(request, id, slug):
     my_images_comments = os.listdir(os.path.join(settings.BASE_DIR, 'media/images/img_authors_comments')) # concateno com o caminho que sempre será fixo de onde esta as imagens
     # print(type(my_images_comments))
     # print(my_images_comments)
+    # TODO: Acertas para as imagens por mais que seja randomicas também não pode se repetir
     list_images_comments = [choice(my_images_comments) for _ in range(totalcomments)] # pegando de forma randominca imagens para os comentários, pego a quantidade certa de imagens para a qtde de comentarios
     # print(list_images_comments)
-
     images_comments = {'img':list_images_comments, 'comments':comments}
-
     # print(type(img_coments))
     # print(img_coments)
     # print(type(img_coments['img']))
