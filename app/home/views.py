@@ -12,6 +12,12 @@ def home(request):
     categorias_menu = Category.objects.order_by('title') # transformando meu menu em dinâmico
     return render(request, 'home/home.html', {'categorias_menu':categorias_menu})
 
+def politica_privacidade(request):
+    return render(request, 'home/politica_privacidade.html' )
+
+def termos_uso(request):
+    return render(request, 'home/termos_uso.html')
+
 def menu():
     categorias_menu = Category.objects.all() #.order_by('title') # transformando meu menu em dinâmico
     # print(categorias_menu)
