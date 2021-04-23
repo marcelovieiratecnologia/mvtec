@@ -24,7 +24,11 @@
                 <div class="col-lg-6">
                   <div class="blog-post">
                     <div class="blog-thumb">
-                      <img src="{{cat.image.url}}" alt="">
+                      {% if cat.image %}
+                        <img src="{{cat.image.url}}" alt="">
+                      {% else %}
+                        <img src="{{image_default}}" alt="">
+                      {% endif %}
                     </div>
                     <div class="down-content">
                       <span>{{cat.category}}</span>

@@ -4,7 +4,11 @@
     <div class="owl-banner owl-carousel">
       {% for item in blog_slide_random %}
         <div class="item">
-        <img src="{{item.image.url}}" alt="">
+          {% if item.image %}
+            <img src="{{item.image.url}}" alt="">
+          {% else %}
+            <img src="{{image_default}}" alt="">
+          {% endif %}
         <div class="item-content">
           <div class="main-content">
             <div class="meta-category">
@@ -14,7 +18,7 @@
             <ul class="post-info">
               <li><a href="#">{{item.user.last_name}}</a></li>
               <li><a href="#">{{item.updated_at|date:"d/m/Y"}}</a></li>
-              <li><a href="#">12 Comments</a></li>
+<!--              <li><a href="#">12 Comments</a></li>-->
             </ul>
           </div>
         </div>

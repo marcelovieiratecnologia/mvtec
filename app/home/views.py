@@ -4,14 +4,23 @@ from django.shortcuts import render
 from .models import Contact
 from ..blog.models import Post, Category # usando para que eu deixe de usar os links no menu de modo FIXO e seja dinâmico
 from .forms import ContactForm
-
+from django.conf import settings
 
 def home(request):
     # TODO: {'categorias_menu' em dois lugares , talvez melhor isso para não dar problema em dois lugares qdo atualizar alguma coisa
     #  .. na view home para qdo carregar da primeira vez e na VIEW BLOG para sem carregar a category.html qdo for chamada}
     categorias_menu = Category.objects.order_by('title') # transformando meu menu em dinâmico
     blog_slide_random = Post.objects.order_by('?')[:4]
-    return render(request, 'home/home.html', {'categorias_menu':categorias_menu, 'blog_slide_random':blog_slide_random})
+    image_default = settings.MEDIA_URL+'images/no_image_mvt.jpg'
+    for i in blog_slide_random:
+        print(i.image)
+    context = {
+        'categorias_menu': categorias_menu,
+        'blog_slide_random': blog_slide_random,
+        'image_default':image_default,
+    }
+
+    return render(request, 'home/home.html', context)
 
 def politica_privacidade(request):
     return render(request, 'home/politica_privacidade.html' )

@@ -25,7 +25,11 @@
                 <div class="col-lg-12">
                   <div class="blog-post">
                     <div class="blog-thumb">
-                      <img src="{{blogdetails.image.url}}" alt="">
+                        {% if blogdetails.image %}
+                            <img src="{{blogdetails.image.url}}" alt="">
+                        {% else %}
+                            <img src="{{image_default}}" alt="">
+                        {% endif %}
                     </div>
                     <div class="down-content">
                       <span>{{blogdetails.category}}</span>

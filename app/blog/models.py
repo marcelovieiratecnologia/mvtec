@@ -4,6 +4,8 @@ from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
+image_default = 'image/no_image_mvt.jpg'
+print(image_default)
 
 class Category(models.Model):
     title = models.CharField(verbose_name='Título', max_length=200, null=False)
@@ -37,8 +39,6 @@ class Post(models.Model):
     # text = models.TextField(verbose_name='Texto', null=False) Passei a usar o CKEDITOR, então mudei conforme a linha abaixo
     text = RichTextUploadingField(verbose_name='Texto')
     fonte = models.CharField(max_length=255, null=True)
-
-
     created_at = models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Alterado em', auto_now=True)
 

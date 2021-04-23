@@ -33,12 +33,14 @@ def category(request, id):
     categorys_tag = Category.objects.all()
     blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     comments = Comment.objects.filter(post_id=id, status='Lido').count()
+    image_default = settings.MEDIA_URL + 'images/no_image_mvt.jpg'  # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
     context = {
                 'categorias_menu':categorias_menu,
                 'category': category,
                 'blog_latest': blog_latest,
                 'categorys_tag': categorys_tag,
                 'comments': comments,
+                'image_default':image_default,
                }
     return render(request, 'blog/categorys.html', context)
 
@@ -49,7 +51,7 @@ def blogs(request):
     categorys_tag = Category.objects.all()
     blogs = Post.objects.filter(status_post='Publicado')
     blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
-
+    image_default = settings.MEDIA_URL + 'images/no_image_mvt.jpg'  # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
     # comments = Comment.objects.filter(post_id=id, status='Lido')
     # for c in comments:
     #     print('Comentários ::::::::::::::::::', c['comment'])
@@ -69,7 +71,8 @@ def blogs(request):
                 'categorias_menu':categorias_menu,
                 'categorys_tag':categorys_tag,
                 # 'comments': comments,
-                # 'totalcomments': totalcomments
+                # 'totalcomments': totalcomments,
+                'image_default':image_default,
                 }
     return render(request, "blog/blogs.html", content)
 
@@ -81,6 +84,7 @@ def blog_detail(request, id, slug):
     blogdetails = Post.objects.get(pk=id)
     comments = Comment.objects.filter(post_id=id, status='Lido')
     blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    image_default = settings.MEDIA_URL+'images/no_image_mvt.jpg' # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
     #  pegar o total de comentário
         # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
     # outro jeito de contar os comentários
@@ -120,6 +124,7 @@ def blog_detail(request, id, slug):
                'categorys_tag': categorys_tag,
                'categorias_menu': categorias_menu,
                'list_images_comments': list_images_comments,
+               'image_default':image_default,
                }
 
     return render(request, 'blog/blogdetail.html', context)
