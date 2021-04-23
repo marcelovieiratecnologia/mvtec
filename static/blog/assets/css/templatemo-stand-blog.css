@@ -404,9 +404,9 @@ header .navbar {
 }
 
 .blog-posts .blog-thumb img {
-	/*width: 100%; original-mvt*/
-	width: 600px;
-	height: 350px;
+	width: 100%; /*original-mvt*/
+	/*width: 900px;
+	height: 350px;*/
 	overflow: hidden;
 }
 
