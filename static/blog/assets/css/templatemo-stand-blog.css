@@ -269,7 +269,8 @@ header .navbar {
 	margin-bottom: -24px;
 }
 .owl-banner {
-	padding-top: 110px;
+	/* padding-top: 110px;  original MVT*/
+	padding-top: 1px;
 }
 
 .owl-banner .item {

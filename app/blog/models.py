@@ -35,7 +35,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, null=False)
     subtitle = models.CharField(verbose_name='SubTítulo', max_length=200, null=False)
     description = models.TextField(verbose_name='Descrição', null=False)
-    image = models.ImageField(verbose_name='Imagem', upload_to='images/', blank=True) # Tamanho : 580x500 px
+    image = models.ImageField(verbose_name='Imagem', upload_to='images/', blank=True) # Tamanho : 770x540 px
     # text = models.TextField(verbose_name='Texto', null=False) Passei a usar o CKEDITOR, então mudei conforme a linha abaixo
     text = RichTextUploadingField(verbose_name='Texto')
     fonte = models.CharField(max_length=255, null=True)

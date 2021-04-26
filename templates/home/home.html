@@ -12,9 +12,188 @@
 {% endblock css %}
 
 {% block content %}
-    {% block slide %}
-      {% include 'blog/slide.html' %}
-    {% endblock slide %}
+    <!--  Begini Slide  -->
+    <div class="row">
+        <div class="col-lg-12 mb-12">
+            <!-- Illustrations -->
+            <div class="card shadow mb-12">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Últimas do Blog</h6>
+                </div>
+                    <div class="card-body">
+                        {% block slide %}
+                          {% include 'blog/slide.html' %}
+                        {% endblock slide %}
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- Final Slide   -->
+    <!-- begin Projeto Clinica -->
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <!-- Illustrations -->
+            <div class="card shadow mb-12">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Sistema para Clínica</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
+                    </div>
+                    <div class="row">
+                       <!--  div Lançamentos Entradas/Saídas  -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Lançamentos Entradas/Saídas
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">100%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!--  Fim div Lançamentos Entradas/Saídas  -->
+                       <!--  div Cadastros  -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Cadastros
+
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">100%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!--  Fim div Cadastros  -->
+                       <!--  div Usuários/Perfis  -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Usuários/Perfis
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">95%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!--  Fim div usuários/Perfis  -->
+                       <!--  div Gráficos  -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Gráficos Estatísticos
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="50"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!--  Fim div Gráficos  -->
+                    </div>
+                    <p>Um sistema simples que surgiu a idéia a partir de uma planilha do excel onde era feito o controle de movimentações de Entrada e Saída do dia-a-dia.</p>
+
+                        <p><a target="_blank" rel="nofollow" href="https://odontomed.herokuapp.com/">Clinic System</a>,
+                            Se trata de um sistema para lançamento de entradas e saídas onde se pode fazer a gestão de modo simples
+                            Por exemplo da Entrada:
+                        </p>
+                            <!--  Itens do Sistemas  -->
+                            <div class="row">
+                                <div class="col ">
+                                    <a class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">Quem é o profissional qua atendeu e sua especialidade.</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">Qual o tipo de pagamento, quantidade de parcelas e o valor.</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">Quem foi o paciente atendido.</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Fim Itens do Sistemas  -->
+
+                    <a target="_blank" rel="nofollow" href="https://odontomed.herokuapp.com/">Clique e acesse o Sistema →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Final Projeto Clinica -->
+
 {% endblock content %}
 {% block js %}
         <!-- Bootstrap core JavaScript -->
