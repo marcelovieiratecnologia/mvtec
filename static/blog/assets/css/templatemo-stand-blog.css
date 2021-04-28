@@ -397,10 +397,11 @@ header .navbar {
 /* Blog Posts */
 
 .blog-posts {
-	margin-top: 100px;
+	margin-top: 30px;
 }
 
 .blog-posts .blog-post {
+	/*margin-bottom: 1000px; Original MVT*/
 	margin-bottom: 30px;
 }
 
