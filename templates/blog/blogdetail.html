@@ -45,6 +45,11 @@
                       </ul>
                       <p>
                         {{blogdetails.text|safe}}
+                        {% if blogdetails.fonte != NULL %}
+                          <span>FONTE:</span>
+                        {{blogdetails.fonte}}
+
+                        {% endif %}
                       </p>
                       <div class="post-options">
                         <div class="row">

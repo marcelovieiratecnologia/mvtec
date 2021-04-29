@@ -4,8 +4,8 @@ from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
-image_default = 'image/no_image_mvt.jpg'
-print(image_default)
+# image_default = 'image/no_image_mvt.jpg'
+# print(image_default)
 
 class Category(models.Model):
     title = models.CharField(verbose_name='Título', max_length=200, null=False)
@@ -21,6 +21,14 @@ class Category(models.Model):
         verbose_name = 'Categoria'  # 'Entrada/Saída'
         verbose_name_plural = 'Categorias'
 
+
+# TODO:: tratando o nome da imagem para que leve o nome da postagem e qdo for excluir no drive na nuvem do CLOUDNARY eu saber exatamente as que podem
+# def name_image_post(title):
+#     name_image = '_' + str(title) + '.jpg'
+#     print('AAAAAAAAAAAAAAAAAA  ',name_image)
+#     return 'images/'.format(name_image)
+
+
 class Post(models.Model):
     STATUS_POST = (
         ('Publicado','Publicado'),
@@ -33,12 +41,13 @@ class Post(models.Model):
 
     title = models.CharField(verbose_name='Título', max_length=200, null=False)
     slug = models.SlugField(unique=True, null=False)
-    subtitle = models.CharField(verbose_name='SubTítulo', max_length=200, null=False)
-    description = models.TextField(verbose_name='Descrição', null=False)
-    image = models.ImageField(verbose_name='Imagem', upload_to='images/', blank=True) # Tamanho : 770x540 px
+    subtitle = models.CharField(verbose_name='SubTítulo', max_length=200, null=True, blank=True)
+    description = models.TextField(verbose_name='Descrição', null=True, blank=True)
+    # image = models.ImageField(verbose_name='Imagem', upload_to='images/', null=True, blank=True) # Tamanho : 770x540 px
+    image = models.ImageField(verbose_name='Imagem', upload_to='images/', null=True, blank=True)  # Tamanho : 770x540 px
     # text = models.TextField(verbose_name='Texto', null=False) Passei a usar o CKEDITOR, então mudei conforme a linha abaixo
-    text = RichTextUploadingField(verbose_name='Texto')
-    fonte = models.CharField(max_length=255, null=True)
+    text = RichTextUploadingField(verbose_name='Texto', null=True, blank=True)
+    fonte = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Alterado em', auto_now=True)
 
