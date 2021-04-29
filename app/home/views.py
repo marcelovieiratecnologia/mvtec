@@ -10,7 +10,7 @@ def home(request):
     # TODO: {'categorias_menu' em dois lugares , talvez melhor isso para não dar problema em dois lugares qdo atualizar alguma coisa
     #  .. na view home para qdo carregar da primeira vez e na VIEW BLOG para sem carregar a category.html qdo for chamada}
     categorias_menu = Category.objects.order_by('title') # transformando meu menu em dinâmico
-    blog_slide_random = Post.objects.order_by('?')[:4]
+    blog_slide_random = Post.objects.filter(status_post='Publicado').order_by('?')[:4]
     image_default = settings.MEDIA_URL+'images/no_image_mvt.jpg'
     for i in blog_slide_random:
         print(i.image)
