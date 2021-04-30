@@ -51,7 +51,6 @@ class Post(models.Model):
     created_at = models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Alterado em', auto_now=True)
 
-
     def image_admin(self):
         if self.image:
             return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
@@ -74,7 +73,7 @@ class Comment(models.Model):
     )
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     name = models.CharField(max_length=70, blank=False)
-    email = models.EmailField(max_length=120, null=False, default=None)
+    email = models.EmailField(max_length=120, help_text='Entre com o seu endereço de email válido!', null=False, blank=False)
     comment = models.TextField(blank=False)
     status = models.CharField(choices=STATUS, max_length=14, default="Não Lido")
 

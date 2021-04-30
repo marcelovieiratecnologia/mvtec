@@ -3,17 +3,19 @@ from random import choice
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.conf import settings
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # My Views Creates
 from .models import Post, Category, Comment
-from .forms import CommentForm
+from .forms import CommentModelForm
 
 # Create your views here.
 def indexblog(request):
     categorys = Category.objects.all()
-    blog_slide_random = Post.objects.order_by('?')[:4]  # Aqui estou montando o SLIDE de forma randomica  e com apenas 4
-    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:8]  # Aqui estou montanto o meu conteúdo para a página e apenas 8 últimos
+    blog_slide_random = Post.objects.order_by('-?')[:4]  # Aqui estou montando o SLIDE de forma randomica  e com apenas 4
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('-id')[:8]  # Aqui estou montanto o meu conteúdo para a página e apenas 8 últimos
     conteudo = {
                 'blog_slide_random': blog_slide_random,
                 'blog_latest': blog_latest,
@@ -31,7 +33,7 @@ def category(request, id):
     categorias_menu = Category.objects.order_by('title')  # transformando meu menu em dinâmico
     category = Post.objects.filter(category_id=id, status_post='Publicado')
     categorys_tag = Category.objects.all()
-    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('-id')[:6]  # Aqui estou montanto o meu conteúdo para a página e apenas 6 últimos
     comments = Comment.objects.filter(post_id=id, status='Lido').count()
     image_default = settings.MEDIA_URL + 'images/no_image_mvt.jpg'  # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
     context = {
@@ -50,7 +52,7 @@ def blogs(request):
     #category = Category.objects.all().order_by('title')
     categorys_tag = Category.objects.all()
     blogs = Post.objects.filter(status_post='Publicado')
-    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('-id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     image_default = settings.MEDIA_URL + 'images/no_image_mvt.jpg'  # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
     # comments = Comment.objects.filter(post_id=id, status='Lido')
     # for c in comments:
@@ -83,7 +85,7 @@ def blog_detail(request, id, slug):
     categorys_tag = Category.objects.all()
     blogdetails = Post.objects.get(pk=id)
     comments = Comment.objects.filter(post_id=id, status='Lido')
-    blog_latest = Post.objects.filter(status_post='Publicado').order_by('id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('-id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     image_default = settings.MEDIA_URL+'images/no_image_mvt.jpg' # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
     #  pegar o total de comentário
         # totalcomments = Comment.objects.filter(post_id=id, status='Lido').count()
@@ -126,23 +128,62 @@ def blog_detail(request, id, slug):
                'list_images_comments': list_images_comments,
                'image_default':image_default,
                }
-
     return render(request, 'blog/blogdetail.html', context)
 
 
 def add_comment(request, id):
     url = request.META.get('HTTP_REFERER')
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            data = Comment()
-            data.name = form.cleaned_data['name']
-            data.comment = form.cleaned_data['comment']
-            data.email = form.cleaned_data['email']
-            data.post_id = id
-            data.save()
-            return HttpResponseRedirect(url)
+    categorias_menu = Category.objects.order_by('title')  # transformando meu menu em dinâmico
+    categorys_tag = Category.objects.all()
+    blogdetails = Post.objects.get(pk=id)
+    comments = Comment.objects.filter(post_id=id, status='Lido')
+    blog_latest = Post.objects.filter(status_post='Publicado').order_by('-id')[:3]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
+    image_default = settings.MEDIA_URL+'images/no_image_mvt.jpg' # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
+    totalcomments = 0
+    for i in comments:
+        totalcomments += 1
+
+    # TODO:  pegar as imagens de forma randômicas para colocar ela nos comentários do post
+    my_images_comments = os.listdir(os.path.join(settings.BASE_DIR, 'media/images/img_authors_comments')) # concateno com o caminho que sempre será fixo de onde esta as imagens
+    # TODO: Acertas para as imagens por mais que seja randomicas também não pode se repetir
+    list_images_comments = [choice(my_images_comments) for _ in range(totalcomments)] # pegando de forma randominca imagens para os comentários, pego a quantidade certa de imagens para a qtde de comentarios
+    # if request.method == 'POST':
+    #     form = CommentModelForm(request.POST)
+    form = CommentModelForm(request.POST or None) # outro jeito diferente das duas linhas acima!
+    images_comments = {'img':list_images_comments, 'comments':comments}
+    context = {'blogdetails': blogdetails,
+               'comments': comments,
+               'images_comments': images_comments,
+               'totalcomments': totalcomments,
+               'blog_latest': blog_latest,
+               'categorys_tag': categorys_tag,
+               'categorias_menu': categorias_menu,
+               'list_images_comments': list_images_comments,
+               'image_default':image_default,
+               'form':form,
+               }
+
+    if form.is_valid():
+        data = Comment()
+        data.name = form.cleaned_data['name']
+        data.comment = form.cleaned_data['comment']
+        data.email = form.cleaned_data['email']
+        data.post_id = id
+        data.save()
+        messages.success(request, 'Comentário está em Análise')
+        print(form.cleaned_data)
+        return HttpResponseRedirect(url)
+    else:
+        # messages.error(request, 'Algo de errado aconteceu')
+        print(form.errors)
+        return render(request , 'blog/blogdetail.html', context) # se ficar assim ele não carrega a postagem
+        # return HttpResponseRedirect(url)
     return HttpResponseRedirect(url)
+
+
+
+
+
 
 # def category_laravel(request):
 #     category = Post.objects.filter(category_id=1) # categoria do Laravel

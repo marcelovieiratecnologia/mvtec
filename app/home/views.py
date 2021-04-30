@@ -12,8 +12,8 @@ def home(request):
     categorias_menu = Category.objects.order_by('title') # transformando meu menu em dinâmico
     blog_slide_random = Post.objects.filter(status_post='Publicado').order_by('?')[:4]
     image_default = settings.MEDIA_URL+'images/no_image_mvt.jpg'
-    for i in blog_slide_random:
-        print(i.image)
+    # for i in blog_slide_random:
+    #     print(i.image)
     context = {
         'categorias_menu': categorias_menu,
         'blog_slide_random': blog_slide_random,

@@ -11,9 +11,9 @@
               <span>{{item.category.title}}</span>
               <a href="/blog/blog-detail/{{item.id}}/{{item.slug}}"><h4>{{item.title}}</h4></a>
               <ul class="post-info">
-                <li><a href="#">{{item.user.last_name}}</a></li>
-                <li><a href="#">{{item.created_at|date:"d/m/Y"}}</a></li>
-                <li><a href="#">12 Comments</a></li>
+                <li><a style="cursor: pointer;">{{item.user.last_name}}</a></li>
+                <li><a style="cursor: pointer;">{{item.created_at|date:"d/m/Y"}}</a></li>
+                <li><a style="cursor: pointer;">12 Comments</a></li>
               </ul>
               <p>{{item.description}}</p>
               <div class="post-options">
@@ -21,7 +21,7 @@
                   <div class="col-6">
                     <ul class="post-tags">
                       <li><i class="fa fa-tags"></i></li>
-                      <li><a href="#">{{item.category.title}}</a></li>
+                      <li><a style="cursor: pointer;">{{item.category.title}}</a></li>
                     </ul>
                   </div>
                   <div class="col-6">
