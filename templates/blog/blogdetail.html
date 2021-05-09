@@ -36,7 +36,7 @@
                       <a style="cursor: pointer;"><h4>{{blogdetails.title}}</h4></a>
                       <ul class="post-info">
                         <li><a style="cursor: pointer;">{{blogdetails.user.last_name}}</a></li>
-                        <li><a style="cursor: pointer;">{{blogdetails.updated_at|date:"d/m/Y"}}</a></li>
+                        <li><a style="cursor: pointer;">{{blogdetails.dt_publicado_em|date:"d/m/Y"}}</a></li>
                         {% if totalcomments > 0 %}
                           <li><a style="cursor: pointer;">{{totalcomments}} Commentário(s)</a></li>
                         {% else %}
@@ -103,7 +103,7 @@
                             </div>
                             <div class="right-content">
                                 <h4>{{comment.name}}<span>
-                                    {{comment.created_at|date:"d/m/Y"}}</span></h4>
+                                    {{comment.dt_publicado_em|date:"d/m/Y"}}</span></h4>
                                 <p>{{comment.comment}}</p>
                             </div>
                             </li>

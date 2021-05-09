@@ -51,7 +51,7 @@ def blogs(request):
     categorias_menu = Category.objects.order_by('title')  # transformando meu menu em dinâmico
     #category = Category.objects.all().order_by('title')
     categorys_tag = Category.objects.all()
-    blogs = Post.objects.filter(status_post='Publicado')
+    blogs = Post.objects.filter(status_post='Publicado').order_by('-updated_at', '-dt_publicado_em')
     blog_latest = Post.objects.filter(status_post='Publicado').order_by('-id')[:4]  # Aqui estou montanto o meu conteúdo para a página e apenas 3 últimos
     image_default = settings.MEDIA_URL + 'images/no_image_mvt.jpg'  # traz a imagem que fiz para ficar como default qdo ainda não estiver escolhido uma
     # comments = Comment.objects.filter(post_id=id, status='Lido')

@@ -12,7 +12,7 @@
               <a href="/blog/blog-detail/{{item.id}}/{{item.slug}}"><h4>{{item.title}}</h4></a>
               <ul class="post-info">
                 <li><a style="cursor: pointer;">{{item.user.last_name}}</a></li>
-                <li><a style="cursor: pointer;">{{item.created_at|date:"d/m/Y"}}</a></li>
+                <li><a style="cursor: pointer;">{{item.dt_publicado_em|date:"d/m/Y"}}</a></li>
                 <li><a style="cursor: pointer;">12 Comments</a></li>
               </ul>
               <p>{{item.description}}</p>

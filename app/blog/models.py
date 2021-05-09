@@ -48,6 +48,7 @@ class Post(models.Model):
     # text = models.TextField(verbose_name='Texto', null=False) Passei a usar o CKEDITOR, então mudei conforme a linha abaixo
     text = RichTextUploadingField(verbose_name='Texto', null=True, blank=True)
     fonte = models.CharField(max_length=255, null=True, blank=True)
+    dt_publicado_em = models.DateTimeField(verbose_name='Publicado em', null=True, blank=True)
     created_at = models.DateTimeField(verbose_name='Criado em', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Alterado em', auto_now=True)
 
