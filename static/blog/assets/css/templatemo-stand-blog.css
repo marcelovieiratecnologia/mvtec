@@ -281,7 +281,7 @@ header .navbar {
 .owl-banner .item .item-content {
 	/* position: absolute; */  /*Original */
 	position: relative; /* Inserido MVT */
-	bottom: -5px;
+	bottom: 0px;
 	left: 20px;
 }
 
@@ -290,16 +290,16 @@ header .navbar {
 	font-size: 18px;
 	text-transform: uppercase;
 	font-weight: 900;
-	letter-spacing: 0.1px;
+	letter-spacing: 0.50px;
 }
 
 .owl-banner .item .item-content h4 {
-	font-size: 17px;
-	font-weight: 900;
+	font-size: 16px;
+	font-weight: 700;
 	color: #fff;
-	letter-spacing: 0.2px;
+	letter-spacing: 0.08px;
 	text-transform: capitalize;
-	margin: 10px 0px 12px 0px;
+	margin: 1px 0px 1px 5px;
 }
 
 .owl-banner .item .item-content ul li {
